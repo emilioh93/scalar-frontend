@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Footer from "./components/common/Footer";
 import Details from "./components/Details";
+import Dashboard from "./Pages/Dashboard";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route exact path="/details">
             <Details />
+          </Route>
+          <Route exact path="/dashboard">
+            <Dashboard />
           </Route>
         </Switch>
         <Footer />
