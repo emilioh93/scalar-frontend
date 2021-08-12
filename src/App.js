@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Footer from "./components/common/Footer";
+import Details from "./components/Details";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             <SignUp />
+          </Route>
+          <Route exact path="/details">
+            <Details />
           </Route>
         </Switch>
         <Footer />
