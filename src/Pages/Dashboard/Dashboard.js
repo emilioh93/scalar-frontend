@@ -106,11 +106,20 @@ export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [users, setUsers] = useState();
+  const [genres, setGenres] = useState();
 
   const consultUsers = async () => {
     await fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((json) => setUsers(json));
+  };
+
+  const consultGenres = async () => {
+    await fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+    )
+      .then((response) => response.json())
+      .then((json) => setGenres(json.genres));
   };
 
   const handleDrawerOpen = () => {
@@ -122,6 +131,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     consultUsers();
+    consultGenres();
   }, []);
 
   return (
@@ -182,13 +192,13 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <AddMoviesDash />
+                <AddMoviesDash genres={genres} />
               </Paper>
             </Grid>
             <hr />
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <GenreDash />
+                <GenreDash genres={genres} />
               </Paper>
             </Grid>
             <Grid item xs={12}>

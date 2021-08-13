@@ -1,7 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Title from "./Title";
-import { Button, Grid, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -15,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddMoviesDash() {
+export default function AddMoviesDash({ genres }) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = React.useState(
     new Date("2014-08-18T21:11:54")
@@ -29,6 +36,7 @@ export default function AddMoviesDash() {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
   return (
     <React.Fragment>
       <Title>Add new movie</Title>
@@ -63,9 +71,12 @@ export default function AddMoviesDash() {
               value={age}
               onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {genres &&
+                genres.map((genre) => {
+                  return <MenuItem value={genre.id}>{genre.name}</MenuItem>;
+                })}
+              {/* <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem> */}
             </Select>
           </Grid>
           <Grid item xm={12} md={4}>
