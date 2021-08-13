@@ -30,7 +30,13 @@ export const mainListItems = (
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Genre" />
+      <ListItemText primary="Genres" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Add Genre" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
