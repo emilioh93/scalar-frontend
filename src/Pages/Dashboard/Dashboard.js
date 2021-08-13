@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -105,12 +105,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [users, setUsers] = useState();
+
+  const consultUsers = async () => {
+    await fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((json) => setUsers(json));
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    consultUsers();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -187,7 +199,7 @@ export default function Dashboard() {
             <hr />
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <UsersDash />
+                <UsersDash users={users} />
               </Paper>
             </Grid>
           </Grid>

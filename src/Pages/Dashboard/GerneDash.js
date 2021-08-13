@@ -54,16 +54,14 @@ const rows = [
   ),
 ];
 
-export default function UsersDash() {
+export default function GenreDash() {
   return (
     <React.Fragment>
-      <Title>List of users</Title>
+      <Title>List of genres</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Last</TableCell>
-            <TableCell>Email</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -71,9 +69,7 @@ export default function UsersDash() {
           {rows.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.date}</TableCell>
+              <TableCell>{row.paymentMethod}</TableCell>
             </TableRow>
           ))}
         </TableBody>
