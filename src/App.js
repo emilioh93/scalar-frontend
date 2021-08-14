@@ -41,7 +41,7 @@ function App() {
             <Details />
           </Route>
           <Route exact path="/dashboard">
-            <Dashboard />
+            <Dashboard  movies={movies}/>
           </Route>
         </Switch>
         <Footer />

@@ -35,7 +35,7 @@ export default function MediaCard({movie}) {
           {movie.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Raiting
+            {movie.raiting}/5
           </Typography>
         </CardContent>
       </CardActionArea>
