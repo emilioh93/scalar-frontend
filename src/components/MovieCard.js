@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard() {
+export default function MediaCard({movie}) {
   const classes = useStyles();
 
   return (
@@ -27,12 +27,12 @@ export default function MediaCard() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://images.fandango.com/ImageRenderer/200/0/redesign/static/img/default_poster.png/0/images/masterrepository/Fandango/225211/RagingFire-DonnieYen-WellGoUSA-1382x2048.jpg"
-          title="Title of the movie"
+          image={movie.image}
+          title={movie.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Title of the movie
+          {movie.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Raiting

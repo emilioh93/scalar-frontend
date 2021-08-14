@@ -7,15 +7,29 @@ import Login from "./components/Login";
 import Footer from "./components/common/Footer";
 import Details from "./components/Details";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
+  const [movies, setMovies] = useState();
+
+  const consultMovies = async () => {
+    await fetch(process.env.REACT_APP_API_MOVIES)
+      .then((response) => response.json())
+      .then((data) => setMovies(data));
+  };
+
+  useEffect(() => {
+    consultMovies();
+  }, []);
+
   return (
     <div>
       <BrowserRouter>
         <Navbar></Navbar>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home movies={movies} />
           </Route>
           <Route exact path="/login">
             <Login />

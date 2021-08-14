@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = () => {
+const Home = ({movies}) => {
   const classes = useStyles();
 
   return (
@@ -20,7 +20,7 @@ const Home = () => {
       <div>
         <span>Sorted by</span>
       </div>
-      <MovieList></MovieList>
+      <MovieList movies={movies}></MovieList>
     </Container>
   );
 };
