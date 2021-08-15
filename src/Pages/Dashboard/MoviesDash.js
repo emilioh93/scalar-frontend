@@ -7,8 +7,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Title from "./Title";
 import { Button, makeStyles } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import Swal from "sweetalert2";
+import EditMoviesDash from "./EditMoviesDash";
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -83,7 +83,7 @@ export default function MoviesDash({ consultMovies, movies }) {
                 </TableCell>
                 <TableCell>
                   <Button>
-                    <EditIcon></EditIcon>
+                    <EditMoviesDash></EditMoviesDash>
                   </Button>
                   <Button>
                     <DeleteIcon
