@@ -39,7 +39,6 @@ export default function MoviesDash({ consultMovies, movies }) {
               "Content-Type": "application/json",
             },
           });
-          console.log(response);
           if (response.status === 200) {
             Swal.fire("The movie was removed", "", "success");
             // Update list of movies
@@ -49,7 +48,6 @@ export default function MoviesDash({ consultMovies, movies }) {
           console.log(error);
           Swal.fire("Error", "", "warning");
         }
-        Swal.fire("Error", "", "warning");
       }
     });
   };
