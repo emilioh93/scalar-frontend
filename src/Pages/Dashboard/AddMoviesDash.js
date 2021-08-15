@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Title from "./Title";
 import {
@@ -15,6 +15,9 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+// import { date } from "date-fns/locale/af";
+import Swal from "sweetalert2";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   depositContext: {
@@ -22,31 +25,99 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddMoviesDash({ genres }) {
+export default function AddMoviesDash({ consultMovies, genres }) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
-  const [age, setAge] = React.useState("");
+  const [date, setDate] = React.useState(new Date("2021-01-02"));
+  const [genre, setGenre] = useState("");
+  const [name, setName] = useState("");
+  const [resume, setResume] = useState("");
+  const [image, setImage] = useState("");
+  const [raiting, setRaiting] = useState(0);
+  const [error, setError] = useState(false);
+
+  const URL = process.env.REACT_APP_API_MOVIES;
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setGenre(event.target.value);
   };
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    setDate(date);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Validations
+    if (
+      name.trim() !== "" &&
+      resume.trim() !== "" &&
+      image.trim() !== "" &&
+      raiting.trim() !== "" &&
+      date !== "" &&
+      genre !== ""
+    ) {
+      setError(false);
+      // Create object
+      const movie = {
+        name,
+        resume,
+        image,
+        raiting,
+        genre,
+        date,
+      };
+      // POST
+      try {
+        const cabecera = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(movie),
+        };
+
+        // Alert
+        const response = await fetch(URL, cabecera);
+        console.log(response);
+        if (response.status === 201) {
+          Swal.fire("Movie added", "", "success");
+          // Form reset
+          e.target.reset();
+          // Update
+          consultMovies();
+        }
+      } catch (error) {
+        console.log(error);
+        Swal.fire("Error", "error");
+      }
+    } else {
+      setError(true);
+    }
   };
 
   return (
     <React.Fragment>
       <Title>Add new movie</Title>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form
+        onSubmit={handleSubmit}
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+      >
         <Grid container spacing={3}>
           <Grid item xm={12} md={4}>
-            <TextField id="standard-basic" label="Name" />
+            <TextField
+              id="standard-basic"
+              label="Name"
+              onChange={(e) => setName(e.target.value)}
+            />
           </Grid>
           <Grid item xm={12} md={4}>
-            <TextField id="standard-basic" label="Resume" />
+            <TextField
+              id="standard-basic"
+              label="Resume"
+              onChange={(e) => setResume(e.target.value)}
+            />
           </Grid>
           <Grid item xm={12} md={4}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -55,7 +126,7 @@ export default function AddMoviesDash({ genres }) {
                 id="date-picker-dialog"
                 label="Date picker dialog"
                 format="MM/dd/yyyy"
-                value={selectedDate}
+                value={date}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
@@ -68,26 +139,39 @@ export default function AddMoviesDash({ genres }) {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={age}
+              value={genre}
               onChange={handleChange}
             >
               {genres &&
                 genres.map((genre) => {
-                  return <MenuItem value={genre.id}>{genre.name}</MenuItem>;
+                  return <MenuItem value={genre.name}>{genre.name}</MenuItem>;
                 })}
-              {/* <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem> */}
             </Select>
           </Grid>
           <Grid item xm={12} md={4}>
-            <TextField id="standard-basic" label="Image" />
+            <TextField
+              id="standard-basic"
+              label="Image"
+              onChange={(e) => setImage(e.target.value)}
+            />
           </Grid>
           <Grid item xm={12} md={4}>
-            <Button variant="contained" color="primary">
+            <TextField
+              id="standard-basic"
+              label="Rating"
+              type="number"
+              onChange={(e) => setRaiting(e.target.value)}
+            />
+          </Grid>
+          <Grid item xm={12} md={4}>
+            <Button type="submit" variant="contained" color="primary">
               Add Movie
             </Button>
           </Grid>
         </Grid>
+        {error === true ? (
+          <Alert severity="error">Something went wrong!</Alert>
+        ) : null}
       </form>
     </React.Fragment>
   );

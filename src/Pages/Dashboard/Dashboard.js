@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard({movies}) {
+export default function Dashboard({consultMovies, movies}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [users, setUsers] = useState();
@@ -187,12 +187,12 @@ export default function Dashboard({movies}) {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <MoviesDash movies={movies} />
+                <MoviesDash consultMovies={consultMovies} movies={movies} />
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <AddMoviesDash genres={genres} />
+                <AddMoviesDash consultMovies={consultMovies} genres={genres} />
               </Paper>
             </Grid>
             <hr />

@@ -11,7 +11,6 @@ import { Button } from "@material-ui/core";
 
 export default function GenreDash({ genres }) {
 
-  console.log(genres);
   return (
     <React.Fragment>
       <Title>List of genres</Title>

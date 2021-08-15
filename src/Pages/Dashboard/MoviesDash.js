@@ -8,6 +8,7 @@ import Title from "./Title";
 import { Button, makeStyles } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -15,8 +16,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MoviesDash({ movies }) {
+export default function MoviesDash({ consultMovies, movies }) {
   const classes = useStyles();
+
+  const deleteMovie = (code) => {
+    Swal.fire({
+      title: "Are you sure you want to delete the movie?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // DELETE
+        try {
+          const URL = process.env.REACT_APP_API_MOVIES + "/" + code;
+          const response = await fetch(URL, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          console.log(response);
+          if (response.status === 200) {
+            Swal.fire("The movie was removed", "", "success");
+            // Update list of movies
+            consultMovies();
+          }
+        } catch (error) {
+          console.log(error);
+          Swal.fire("Error", "", "warning");
+        }
+        Swal.fire("Error", "", "warning");
+      }
+    });
+  };
 
   return (
     <React.Fragment>
@@ -52,7 +88,9 @@ export default function MoviesDash({ movies }) {
                     <EditIcon></EditIcon>
                   </Button>
                   <Button>
-                    <DeleteIcon></DeleteIcon>
+                    <DeleteIcon
+                      onClick={() => deleteMovie(movie._id)}
+                    ></DeleteIcon>
                   </Button>
                 </TableCell>
               </TableRow>
