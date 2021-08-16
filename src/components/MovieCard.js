@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import routes from "../helpers/routes";
 
 const useStyles = makeStyles({
   root: {
@@ -40,7 +41,7 @@ export default function MediaCard({ movie }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link to={`/details/${movie._id}`} size="small" color="primary">
+        <Link to={routes.details(movie._id)} size="small" color="primary">
           Details
         </Link>
       </CardActions>

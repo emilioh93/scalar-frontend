@@ -3,12 +3,13 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import useAuth from "../auth/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,8 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const userCredentials = {};
+
 export default function SignIn() {
   const classes = useStyles();
+  const location = useLocation();
+  console.log(location);
+  const { login } = useAuth();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -72,6 +78,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => login(userCredentials, location.state?.from)}
           >
             Sign In
           </Button>

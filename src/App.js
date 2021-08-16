@@ -9,6 +9,11 @@ import Details from "./components/Details";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { useState } from "react";
 import { useEffect } from "react";
+import PrivateRoute from "./components/PrivateRoute";
+import AuthProvider from "./auth/AuthProvider";
+import PublicRoute from "./components/PublicRoute";
+import roles from "./helpers/roles";
+import routes from "./helpers/routes";
 
 function App() {
   const [movies, setMovies] = useState();
@@ -26,25 +31,27 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Navbar></Navbar>
-        <Switch>
-          <Route exact path="/">
-            <Home movies={movies} />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/details/:id">
-            <Details />
-          </Route>
-          <Route exact path="/dashboard">
-            <Dashboard consultMovies={consultMovies} movies={movies}/>
-          </Route>
-        </Switch>
-        <Footer />
+        <AuthProvider>
+          <Navbar></Navbar>
+          <Switch>
+            <Route exact path={routes.home}>
+              <Home movies={movies} />
+            </Route>
+            <PublicRoute exact path={routes.login}>
+              <Login />
+            </PublicRoute>
+            <PublicRoute exact path={routes.signup}>
+              <SignUp />
+            </PublicRoute>
+            <Route exact path={routes.details()}>
+              <Details />
+            </Route>
+            <PrivateRoute hasRole={roles.admin} exact path={routes.dashboard}>
+              <Dashboard consultMovies={consultMovies} movies={movies} />
+            </PrivateRoute>
+          </Switch>
+          <Footer />
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );
