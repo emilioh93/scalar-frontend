@@ -92,6 +92,7 @@ export default function MoviesDash({
                       movie={movie}
                       genres={genres}
                       setGenres={setGenres}
+                      consultMovies={consultMovies}
                     />
                   </Button>
                   <Button>
