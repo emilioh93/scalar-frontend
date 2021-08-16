@@ -20,6 +20,8 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import Alert from "@material-ui/lab/Alert";
 import { Container } from "@material-ui/core";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -37,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditMoviesDash() {
   const classes = useStyles();
+  const URL = process.env.REACT_APP_API_MOVIES;
+  const [movie, setMovie] = useState({});
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date("2021-01-02"));
   const [genre, setGenre] = useState("");
@@ -45,6 +49,7 @@ export default function EditMoviesDash() {
   const [image, setImage] = useState("");
   const [raiting, setRaiting] = useState(0);
   const [error, setError] = useState(false);
+  const { id } = useParams();
 
   const handleChange = (event) => {
     setGenre(event.target.value);
@@ -61,6 +66,23 @@ export default function EditMoviesDash() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const consultMovie = async () => {
+    try {
+      const response = await fetch(URL + "/" + id);
+      console.log(response);
+      if (response.status === 200) {
+        const movieFound = await response.json();
+        setMovie(movieFound);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    consultMovie();
+  }, []);
 
   return (
     <div>

@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard({movie}) {
+export default function MediaCard({ movie }) {
   const classes = useStyles();
 
   return (
@@ -32,7 +32,7 @@ export default function MediaCard({movie}) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-          {movie.name}
+            {movie.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {movie.raiting}/5
@@ -40,7 +40,7 @@ export default function MediaCard({movie}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link to="/details" size="small" color="primary">
+        <Link to={`/details/${movie._id}`} size="small" color="primary">
           Details
         </Link>
       </CardActions>
