@@ -14,6 +14,7 @@ import AuthProvider from "./auth/AuthProvider";
 import PublicRoute from "./components/PublicRoute";
 import roles from "./helpers/roles";
 import routes from "./helpers/routes";
+import Error404 from "./components/Error404";
 
 function App() {
   const [movies, setMovies] = useState();
@@ -49,6 +50,9 @@ function App() {
             <PrivateRoute hasRole={roles.admin} exact path={routes.dashboard}>
               <Dashboard consultMovies={consultMovies} movies={movies} />
             </PrivateRoute>
+            <Route path="*">
+              <Error404 />
+            </Route>
           </Switch>
           <Footer />
         </AuthProvider>

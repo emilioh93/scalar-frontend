@@ -3,12 +3,15 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { useState } from "react";
+import Alert from "@material-ui/lab/Alert";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +35,56 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const URL = process.env.REACT_APP_API_USERS;
+  let history = useHistory();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      name.trim() !== "" &&
+      lastName.trim() !== "" &&
+      email.trim() !== "" &&
+      password.trim() !== ""
+    ) {
+      setError(false);
+      // Create user
+      const user = {
+        name,
+        lastName,
+        email,
+        password,
+      };
+      // POST
+      try {
+        const cabecera = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        };
+        const response = await fetch(URL, cabecera);
+        console.log(response);
+        if (response.status === 201) {
+          Swal.fire("User created", "", "success");
+          // Form reset
+          e.target.reset();
+          // Update
+          history.push("/");
+        }
+      } catch (error) {
+        console.log(error);
+        Swal.fire("Error", "error");
+      }
+    } else {
+      setError(true);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -43,7 +96,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -55,6 +108,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(e) => setName(e.target.value)}
+                value={name}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -66,6 +121,8 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -77,6 +134,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -89,6 +148,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
             </Grid>
           </Grid>
@@ -108,6 +169,9 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
+          {error === true ? (
+            <Alert severity="error">Something went wrong!</Alert>
+          ) : null}
         </form>
       </div>
     </Container>

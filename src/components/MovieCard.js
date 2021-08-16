@@ -11,7 +11,8 @@ import routes from "../helpers/routes";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    flexGrow: 1,
+    width: "100%",
   },
   media: {
     height: 500,
