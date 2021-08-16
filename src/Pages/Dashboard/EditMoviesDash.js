@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -18,10 +18,8 @@ import {
   TextField,
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
-import Alert from "@material-ui/lab/Alert";
+// import Alert from "@material-ui/lab/Alert";
 import { Container } from "@material-ui/core";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -37,27 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditMoviesDash() {
+export default function EditMoviesDash({ movie, genres, setGenres }) {
   const classes = useStyles();
-  const URL = process.env.REACT_APP_API_MOVIES;
-  const [movie, setMovie] = useState({});
   const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState(new Date("2021-01-02"));
-  const [genre, setGenre] = useState("");
-  const [name, setName] = useState("");
-  const [resume, setResume] = useState("");
-  const [image, setImage] = useState("");
-  const [raiting, setRaiting] = useState(0);
-  const [error, setError] = useState(false);
-  const { id } = useParams();
+  const [date, setDate] = React.useState(movie.date);
 
-  const handleChange = (event) => {
-    setGenre(event.target.value);
-  };
-
-  const handleDateChange = (date) => {
-    setDate(date);
-  };
+  console.log(movie.date);
 
   const handleOpen = () => {
     setOpen(true);
@@ -67,22 +50,14 @@ export default function EditMoviesDash() {
     setOpen(false);
   };
 
-  const consultMovie = async () => {
-    try {
-      const response = await fetch(URL + "/" + id);
-      console.log(response);
-      if (response.status === 200) {
-        const movieFound = await response.json();
-        setMovie(movieFound);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const handleChange = (event) => {
+    setGenres(event.target.value);
   };
 
-  useEffect(() => {
-    consultMovie();
-  }, []);
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+    // movie.date = newDate;
+  };
 
   return (
     <div>
@@ -116,6 +91,7 @@ export default function EditMoviesDash() {
                     <TextField
                       id="standard-basic"
                       label="Name"
+                      value={movie.name}
                       // onChange={(e) => setName(e.target.value)}
                     />
                   </Grid>
@@ -123,6 +99,7 @@ export default function EditMoviesDash() {
                     <TextField
                       id="standard-basic"
                       label="Resume"
+                      value={movie.resume}
                       // onChange={(e) => setResume(e.target.value)}
                     />
                   </Grid>
@@ -146,22 +123,23 @@ export default function EditMoviesDash() {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={genre}
+                      value={movie.genre}
                       onChange={handleChange}
                     >
-                      {/* {genres &&
-                      genres.map((genre) => {
-                        return (
-                          <MenuItem value={genre.name}>{genre.name}</MenuItem>
-                        );
-                      })} */}
+                      {genres &&
+                        genres.map((genre) => {
+                          return (
+                            <MenuItem value={genre.name}>{genre.name}</MenuItem>
+                          );
+                        })}
                     </Select>
                   </Grid>
                   <Grid item xm={12} md={4}>
                     <TextField
                       id="standard-basic"
                       label="Image"
-                      onChange={(e) => setImage(e.target.value)}
+                      value={movie.image}
+                      // onChange={(e) => setImage(e.target.value)}
                     />
                   </Grid>
                   <Grid item xm={12} md={4}>
@@ -169,7 +147,8 @@ export default function EditMoviesDash() {
                       id="standard-basic"
                       label="Rating"
                       type="number"
-                      onChange={(e) => setRaiting(e.target.value)}
+                      value={movie.raiting}
+                      // onChange={(e) => setRaiting(e.target.value)}
                     />
                   </Grid>
                   <Grid item xm={12} md={4}>
@@ -178,9 +157,9 @@ export default function EditMoviesDash() {
                     </Button>
                   </Grid>
                 </Grid>
-                {error === true ? (
+                {/* {error === true ? (
                   <Alert severity="error">Something went wrong!</Alert>
-                ) : null}
+                ) : null} */}
               </form>
             </Container>
           </div>

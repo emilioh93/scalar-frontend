@@ -16,7 +16,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MoviesDash({ consultMovies, movies }) {
+export default function MoviesDash({
+  consultMovies,
+  movies,
+  genres,
+  setGenres,
+}) {
   const classes = useStyles();
 
   const deleteMovie = (code) => {
@@ -83,7 +88,11 @@ export default function MoviesDash({ consultMovies, movies }) {
                 </TableCell>
                 <TableCell>
                   <Button>
-                    <EditMoviesDash></EditMoviesDash>
+                    <EditMoviesDash
+                      movie={movie}
+                      genres={genres}
+                      setGenres={setGenres}
+                    />
                   </Button>
                   <Button>
                     <DeleteIcon
