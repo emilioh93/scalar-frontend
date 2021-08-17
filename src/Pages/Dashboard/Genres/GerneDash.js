@@ -10,7 +10,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import { Button } from "@material-ui/core";
 
 export default function GenreDash({ genres }) {
-
   return (
     <React.Fragment>
       <Title>List of genres</Title>

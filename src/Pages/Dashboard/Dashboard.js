@@ -107,20 +107,19 @@ export default function Dashboard({ consultMovies, movies }) {
   const [open, setOpen] = React.useState(true);
   const [users, setUsers] = useState();
   const [genres, setGenres] = useState();
-  const URL = process.env.REACT_APP_API_USERS;
 
   const consultUsers = async () => {
+    const URL = process.env.REACT_APP_API_USERS;
     await fetch(URL)
       .then((response) => response.json())
       .then((json) => setUsers(json));
   };
 
   const consultGenres = async () => {
-    await fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-    )
+    const URL = process.env.REACT_APP_API_GENRES;
+    await fetch(URL)
       .then((response) => response.json())
-      .then((json) => setGenres(json.genres));
+      .then((json) => setGenres(json));
   };
 
   const handleDrawerOpen = () => {
@@ -205,12 +204,12 @@ export default function Dashboard({ consultMovies, movies }) {
             <hr />
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <GenreDash genres={genres} />
+                <GenreDash consultGenres={consultGenres} genres={genres} />
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <AddGenresDash />
+                <AddGenresDash consultGenres={consultGenres} />
               </Paper>
             </Grid>
             <hr />

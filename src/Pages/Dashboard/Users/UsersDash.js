@@ -52,6 +52,7 @@ export default function UsersDash({ users, consultUsers }) {
             <TableCell>Name</TableCell>
             <TableCell>Last Name</TableCell>
             <TableCell>Email</TableCell>
+            <TableCell>Role</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -62,6 +63,7 @@ export default function UsersDash({ users, consultUsers }) {
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.lastName}</TableCell>
                 <TableCell>{user.email}</TableCell>
+                <TableCell>{user.role}</TableCell>
                 <TableCell>
                   <Button>
                     <DeleteIcon

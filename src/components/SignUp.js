@@ -58,6 +58,7 @@ export default function SignUp() {
         lastName,
         email,
         password,
+        role: 'Regular',
       };
       // POST
       try {
