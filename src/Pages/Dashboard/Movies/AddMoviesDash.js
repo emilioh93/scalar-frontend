@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Title from "./Title";
+import Title from "../Title";
 import {
   Button,
   Grid,

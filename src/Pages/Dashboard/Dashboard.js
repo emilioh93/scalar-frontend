@@ -15,11 +15,11 @@ import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { mainListItems } from "./listItems";
-import MoviesDash from "./MoviesDash.js";
-import AddMoviesDash from "./AddMoviesDash.js";
-import UsersDash from "./UsersDash.js";
-import GenreDash from "./GerneDash";
-import AddGenresDash from "./AddGenresDash";
+import MoviesDash from "./Movies/MoviesDash.js";
+import AddMoviesDash from "./Movies/AddMoviesDash.js";
+import UsersDash from "./Users/UsersDash.js";
+import GenreDash from "./Genres/GerneDash";
+import AddGenresDash from "./Genres/AddGenresDash";
 
 const drawerWidth = 240;
 
@@ -107,9 +107,10 @@ export default function Dashboard({ consultMovies, movies }) {
   const [open, setOpen] = React.useState(true);
   const [users, setUsers] = useState();
   const [genres, setGenres] = useState();
+  const URL = process.env.REACT_APP_API_USERS;
 
   const consultUsers = async () => {
-    await fetch("https://jsonplaceholder.typicode.com/users")
+    await fetch(URL)
       .then((response) => response.json())
       .then((json) => setUsers(json));
   };
@@ -132,6 +133,7 @@ export default function Dashboard({ consultMovies, movies }) {
   useEffect(() => {
     consultUsers();
     consultGenres();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -214,7 +216,7 @@ export default function Dashboard({ consultMovies, movies }) {
             <hr />
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <UsersDash users={users} />
+                <UsersDash users={users} consultUsers={consultUsers} />
               </Paper>
             </Grid>
           </Grid>
