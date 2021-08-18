@@ -12,6 +12,8 @@ import Container from "@material-ui/core/Container";
 import { useState } from "react";
 import Alert from "@material-ui/lab/Alert";
 import Swal from "sweetalert2";
+import Loader from "./Loader";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,7 +41,9 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const URL = process.env.REACT_APP_API_USERS;
   let history = useHistory();
 
@@ -49,38 +53,31 @@ export default function SignUp() {
       name.trim() !== "" &&
       lastName.trim() !== "" &&
       email.trim() !== "" &&
-      password.trim() !== ""
+      password.trim() !== "" &&
+      password === confirmPassword
     ) {
       setError(false);
-      // Create user
-      const user = {
-        name,
-        lastName,
-        email,
-        password,
-        role: 'Regular',
-      };
-      // POST
       try {
-        const cabecera = {
-          method: "POST",
+        setLoading(true);
+        const config = {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(user),
         };
-        const response = await fetch(URL, cabecera);
-        console.log(response);
-        if (response.status === 201) {
-          Swal.fire("User created", "", "success");
-          // Form reset
-          e.target.reset();
-          // Update
-          history.push("/");
-        }
-      } catch (error) {
-        console.log(error);
-        Swal.fire("Error", "error");
+        const { data } = await axios.post(
+          URL,
+          { name, lastName, email, password, role: "Regular" },
+          config
+        );
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        setLoading(false);
+        setError(false);
+        Swal.fire("User was successfully registered", "", "success");
+        history.push("/");
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+        setError(true);
       }
     } else {
       setError(true);
@@ -97,6 +94,10 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        {error === true ? (
+          <Alert severity="error">Invalid information</Alert>
+        ) : null}
+        {loading && <Loader></Loader>}
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -153,6 +154,20 @@ export default function SignUp() {
                 value={password}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="confirm password"
+                label="Comfirm Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+              />
+            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -170,9 +185,6 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
-          {error === true ? (
-            <Alert severity="error">Something went wrong!</Alert>
-          ) : null}
         </form>
       </div>
     </Container>
