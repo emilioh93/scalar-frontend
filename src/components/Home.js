@@ -12,6 +12,13 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({movies}) => {
   const classes = useStyles();
 
+  // useEffect(() => {
+  //   const userInfo = localStorage.getItem("userInfo");
+  //   if (userInfo) {
+  //     history.push("/");
+  //   }
+  // }, [history]);
+
   return (
     <Container>
       <div className={classes.title}>

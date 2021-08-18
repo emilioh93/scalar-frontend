@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -47,6 +47,7 @@ export default function SignIn() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const URL = process.env.REACT_APP_API_LOGIN;
+  let history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -61,9 +62,12 @@ export default function SignIn() {
       console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
+      setError(false);
+      history.push("/");
     } catch (err) {
       console.log(err);
-      setError(err.response.data.message);
+      setLoading(false);
+      setError(true);
     }
   };
 
