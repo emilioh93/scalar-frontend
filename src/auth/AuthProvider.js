@@ -23,6 +23,7 @@ export default function AuthProvider({ children }) {
 
   const contextValue = {
     user,
+    setUser,
     isLogged,
     hasRole,
     login,

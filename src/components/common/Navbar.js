@@ -4,7 +4,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link, useHistory } from "react-router-dom";
 import routes from "../../helpers/routes";
-import useAuth from "../../auth/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,9 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ user, consultUser }) {
   const classes = useStyles();
-  const { logout } = useAuth();
 
   let history = useHistory();
 
@@ -38,19 +36,23 @@ export default function Navbar() {
           <Link to={routes.home} variant="h6" className={classes.title}>
             Scalar Movies
           </Link>
-          <Link to={routes.login} className={classes.link} color="inherit">
-            Login
-          </Link>
-          <Link
-            onClick={() => {
-              localStorage.removeItem("userInfo");
-              history.push("/");
-            }}
-            className={classes.link}
-            color="inherit"
-          >
-            Logout
-          </Link>
+          {user ? (
+            <Link
+              onClick={() => {
+                localStorage.removeItem("userInfo");
+                history.push("/");
+                consultUser();
+              }}
+              className={classes.link}
+              color="inherit"
+            >
+              Logout
+            </Link>
+          ) : (
+            <Link to={routes.login} className={classes.link} color="inherit">
+              Login
+            </Link>
+          )}
           <Link to={routes.dashboard} className={classes.link} color="inherit">
             Dashboard
           </Link>

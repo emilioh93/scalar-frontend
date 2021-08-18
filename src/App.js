@@ -18,6 +18,17 @@ import Error404 from "./components/Error404";
 
 function App() {
   const [movies, setMovies] = useState();
+  const [user, setUser] = useState(false);
+
+  const consultUser = async () => {
+    if (localStorage.getItem("userInfo")) {
+      setUser(true);
+      console.log("Hay un usuario logeado");
+    } else {
+      setUser(false);
+      console.log("No hay un usuario logeado");
+    }
+  };
 
   const consultMovies = async () => {
     await fetch(process.env.REACT_APP_API_MOVIES)
@@ -27,19 +38,20 @@ function App() {
 
   useEffect(() => {
     consultMovies();
+    consultUser();
   }, []);
 
   return (
     <div>
       <BrowserRouter>
         <AuthProvider>
-          <Navbar></Navbar>
+          <Navbar user={user} consultUser={consultUser}></Navbar>
           <Switch>
             <Route exact path={routes.home}>
               <Home movies={movies} />
             </Route>
             <PublicRoute exact path={routes.login}>
-              <Login />
+              <Login setUser={setUser} />
             </PublicRoute>
             <PublicRoute exact path={routes.signup}>
               <SignUp />
