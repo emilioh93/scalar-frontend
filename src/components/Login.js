@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const userCredentials = {};
 
 export default function SignIn() {
+  const { user } = useAuth();
   const classes = useStyles();
   const location = useLocation();
   // console.log(location);

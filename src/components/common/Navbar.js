@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import routes from "../../helpers/routes";
 import useAuth from "../../auth/useAuth";
 
@@ -29,6 +29,8 @@ export default function Navbar() {
   const classes = useStyles();
   const { logout } = useAuth();
 
+  let history = useHistory();
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -40,8 +42,10 @@ export default function Navbar() {
             Login
           </Link>
           <Link
-            to={routes.login}
-            onClick={logout}
+            onClick={() => {
+              localStorage.removeItem("userInfo");
+              history.push("/");
+            }}
             className={classes.link}
             color="inherit"
           >
