@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,6 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import useAuth from "../auth/useAuth";
+import Swal from "sweetalert2";
+import Loader from "./Loader";
+import Alert from "@material-ui/lab/Alert";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,8 +40,32 @@ const userCredentials = {};
 export default function SignIn() {
   const classes = useStyles();
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   const { login } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const URL = process.env.REACT_APP_API_LOGIN;
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      setLoading(true);
+      const { data } = await axios.post(URL, { email, password }, config);
+      console.log(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.message);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -49,7 +77,11 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        {error === true ? (
+          <Alert severity="error">Invalid email or password</Alert>
+        ) : null}
+        {loading && <Loader></Loader>}
+        <form className={classes.form} noValidate onSubmit={submitHandler}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -60,6 +92,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -71,6 +105,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="submit"
@@ -78,7 +114,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => login(userCredentials, location.state?.from)}
+            // onClick={() => login(userCredentials, location.state?.from)}
           >
             Sign In
           </Button>
