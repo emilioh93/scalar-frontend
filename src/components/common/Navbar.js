@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link, useHistory } from "react-router-dom";
-import routes from "../../helpers/routes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,10 +32,10 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.links}>
-          <Link to={routes.home} variant="h6" className={classes.title}>
+          <Link to="/" variant="h6" className={classes.title}>
             Scalar Movies
           </Link>
-          <Link to={routes.login} className={classes.link} color="inherit">
+          <Link to="/login" className={classes.link} color="inherit">
             Login
           </Link>
           <Link
@@ -49,7 +48,7 @@ export default function Navbar() {
           >
             Logout
           </Link>
-          <Link to={routes.dashboard} className={classes.link} color="inherit">
+          <Link to="/dashboard" className={classes.link} color="inherit">
             Dashboard
           </Link>
         </Toolbar>
