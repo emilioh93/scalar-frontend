@@ -7,14 +7,15 @@ const MovieList = ({ movies }) => {
     <Grid
       container
       spacing={3}
-      style={{ textAlign: "center", display: "flex", justifyContent: "center" }}
     >
-      <Grid item xs={12} sm={12} md={4} lg={3}>
-        {movies &&
-          movies.map((movie) => {
-            return <MovieCard movie={movie}></MovieCard>;
-          })}
-      </Grid>
+      {movies &&
+        movies.map((movie) => {
+          return (
+            <Grid item xs={12} sm={4} lg={3}>
+              <MovieCard movie={movie}></MovieCard>
+            </Grid>
+          );
+        })}
     </Grid>
   );
 };

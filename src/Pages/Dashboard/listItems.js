@@ -3,8 +3,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
+import MovieIcon from '@material-ui/icons/Movie';
+import AddIcon from '@material-ui/icons/Add';
+import TheatersIcon from '@material-ui/icons/Theaters';
 
 export const mainListItems = (
   <div>
@@ -16,25 +18,25 @@ export const mainListItems = (
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <MovieIcon />
       </ListItemIcon>
       <ListItemText primary="Movies" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <AddIcon />
       </ListItemIcon>
       <ListItemText primary="Add Movie" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <TheatersIcon />
       </ListItemIcon>
       <ListItemText primary="Genres" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <AddIcon />
       </ListItemIcon>
       <ListItemText primary="Add Genre" />
     </ListItem>

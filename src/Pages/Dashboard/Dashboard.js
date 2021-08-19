@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard({ consultMovies, movies }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [users, setUsers] = useState();
   const [genres, setGenres] = useState();
 

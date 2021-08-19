@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     color: "#fff",
     textDecoration: "none",
+    margin: "0 15px"
   },
 }));
 
