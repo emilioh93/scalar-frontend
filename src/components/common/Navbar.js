@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({ user, consultUser }) {
+export default function Navbar() {
   const classes = useStyles();
 
   let history = useHistory();
@@ -36,23 +36,19 @@ export default function Navbar({ user, consultUser }) {
           <Link to={routes.home} variant="h6" className={classes.title}>
             Scalar Movies
           </Link>
-          {user ? (
-            <Link
-              onClick={() => {
-                localStorage.removeItem("userInfo");
-                history.push("/");
-                consultUser();
-              }}
-              className={classes.link}
-              color="inherit"
-            >
-              Logout
-            </Link>
-          ) : (
-            <Link to={routes.login} className={classes.link} color="inherit">
-              Login
-            </Link>
-          )}
+          <Link to={routes.login} className={classes.link} color="inherit">
+            Login
+          </Link>
+          <Link
+            onClick={() => {
+              localStorage.removeItem("userInfo");
+              history.push("/");
+            }}
+            className={classes.link}
+            color="inherit"
+          >
+            Logout
+          </Link>
           <Link to={routes.dashboard} className={classes.link} color="inherit">
             Dashboard
           </Link>

@@ -9,7 +9,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-// import useAuth from "../auth/useAuth";
 import Loader from "./Loader";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
@@ -34,18 +33,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const userCredentials = {};
-
-export default function Login({ setUser }) {
+export default function SignIn() {
   const classes = useStyles();
-  // const location = useLocation();
-  // console.log(location);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const URL = process.env.REACT_APP_API_LOGIN;
-  // const { user, setUser } = useAuth();
   let history = useHistory();
 
   const submitHandler = async (e) => {
@@ -58,10 +52,10 @@ export default function Login({ setUser }) {
       };
       setLoading(true);
       const { data } = await axios.post(URL, { email, password }, config);
+      console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       setError(false);
-      setUser(true);
       history.push("/");
     } catch (err) {
       console.log(err);
