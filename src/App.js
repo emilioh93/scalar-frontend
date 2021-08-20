@@ -14,6 +14,7 @@ import { store } from "./Redux/store/store";
 
 function App() {
   const [movies, setMovies] = useState();
+  const [logged, setLogged] = useState(false);
 
   const consultMovies = async () => {
     await fetch(process.env.REACT_APP_API_MOVIES)
@@ -21,21 +22,34 @@ function App() {
       .then((data) => setMovies(data));
   };
 
+  const checkUser = () => {
+    if (localStorage.getItem("userInfo")) {
+      setLogged(true);
+    }
+  };
+
+  console.log(logged);
+
   useEffect(() => {
     consultMovies();
+    checkUser();
   }, []);
 
   return (
     <div>
       <Provider store={store}>
         <BrowserRouter>
-          <Navbar></Navbar>
+          <Navbar
+            checkUser={checkUser}
+            logged={logged}
+            setLogged={setLogged}
+          ></Navbar>
           <Switch>
             <Route exact path="/">
               <Home movies={movies} />
             </Route>
             <Route exact path="/login">
-              <Login />
+              <Login setLogged={setLogged} />
             </Route>
             <Route exact path="/signup">
               <SignUp />

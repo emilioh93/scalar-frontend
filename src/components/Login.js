@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function Login({ setLogged }) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,9 +55,10 @@ export default function SignIn() {
       };
       setLoading(true);
       const { data } = await axios.post(URL, { email, password }, config);
-      dispatch(login(data.email, data.password));
+      dispatch(login(data.token, data.email));
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
+      setLogged(true);
       setError(false);
       history.push("/");
     } catch (err) {
