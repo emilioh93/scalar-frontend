@@ -13,7 +13,7 @@ import Loader from "./Loader";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { login } from "../Redux/actions/actions";
+import { login } from "../Redux/actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,7 +47,6 @@ export default function SignIn() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(login("12345", "Emilio"));
     try {
       const config = {
         headers: {
@@ -56,7 +55,7 @@ export default function SignIn() {
       };
       setLoading(true);
       const { data } = await axios.post(URL, { email, password }, config);
-      console.log(data);
+      dispatch(login(data.email, data.password));
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       setError(false);
@@ -76,7 +75,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Login
         </Typography>
         {error === true ? (
           <Alert severity="error">Invalid email or password</Alert>

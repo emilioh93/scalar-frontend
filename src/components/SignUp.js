@@ -136,6 +136,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
