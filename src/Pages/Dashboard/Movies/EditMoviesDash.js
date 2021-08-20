@@ -36,7 +36,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EditMoviesDash({ movie, genres, setGenres, consultMovies }) {
+export default function EditMoviesDash({
+  movie,
+  genres,
+  setGenres,
+  consultMovies,
+}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(movie.date);
@@ -116,9 +121,9 @@ export default function EditMoviesDash({ movie, genres, setGenres, consultMovies
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <div type="button" onClick={handleOpen}>
         <EditIcon></EditIcon>
-      </button>
+      </div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -182,9 +187,11 @@ export default function EditMoviesDash({ movie, genres, setGenres, consultMovies
                       onChange={handleChange}
                     >
                       {genres &&
-                        genres.map((genre) => {
+                        genres.map((genre, i) => {
                           return (
-                            <MenuItem value={genre.name}>{genre.name}</MenuItem>
+                            <MenuItem key={i} value={genre.name}>
+                              {genre.name}
+                            </MenuItem>
                           );
                         })}
                     </Select>

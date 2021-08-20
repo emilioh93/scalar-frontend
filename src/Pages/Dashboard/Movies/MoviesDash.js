@@ -73,8 +73,8 @@ export default function MoviesDash({
         </TableHead>
         <TableBody>
           {movies &&
-            movies.map((movie) => (
-              <TableRow key={movie.id}>
+            movies.map((movie, i) => (
+              <TableRow key={i}>
                 <TableCell>{movie.name}</TableCell>
                 <TableCell>{movie.raiting}</TableCell>
                 <TableCell>{movie.date}</TableCell>

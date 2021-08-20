@@ -12,6 +12,8 @@ import Container from "@material-ui/core/Container";
 import Loader from "./Loader";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../Redux/actions/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,10 +42,12 @@ export default function SignIn() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const URL = process.env.REACT_APP_API_LOGIN;
+  const dispatch = useDispatch();
   let history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    dispatch(login("12345", "Emilio"));
     try {
       const config = {
         headers: {

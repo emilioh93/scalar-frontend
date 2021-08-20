@@ -4,14 +4,11 @@ import MovieCard from "./MovieCard";
 
 const MovieList = ({ movies }) => {
   return (
-    <Grid
-      container
-      spacing={3}
-    >
+    <Grid container spacing={3}>
       {movies &&
-        movies.map((movie) => {
+        movies.map((movie, i) => {
           return (
-            <Grid item xs={12} sm={4} lg={3}>
+            <Grid key={i} item xs={12} sm={4} lg={3}>
               <MovieCard movie={movie}></MovieCard>
             </Grid>
           );

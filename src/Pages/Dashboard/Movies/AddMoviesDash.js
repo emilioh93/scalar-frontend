@@ -146,8 +146,12 @@ export default function AddMoviesDash({ consultMovies, genres }) {
               onChange={handleChange}
             >
               {genres &&
-                genres.map((genre) => {
-                  return <MenuItem value={genre.name}>{genre.name}</MenuItem>;
+                genres.map((genre, i) => {
+                  return (
+                    <MenuItem key={i} value={genre.name}>
+                      {genre.name}
+                    </MenuItem>
+                  );
                 })}
             </Select>
           </Grid>

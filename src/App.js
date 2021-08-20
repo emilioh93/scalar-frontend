@@ -9,6 +9,8 @@ import Details from "./components/Details";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { useState, useEffect } from "react";
 import Error404 from "./components/Error404";
+import { Provider } from "react-redux";
+import { store } from "./Redux/store/store";
 
 function App() {
   const [movies, setMovies] = useState();
@@ -25,30 +27,32 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
-        <Navbar></Navbar>
-        <Switch>
-          <Route exact path="/">
-            <Home movies={movies} />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/details/:id">
-            <Details />
-          </Route>
-          <Route exact path="/dashboard">
-            <Dashboard consultMovies={consultMovies} movies={movies} />
-          </Route>
-          <Route path="*">
-            <Error404 />
-          </Route>
-        </Switch>
-        <Footer />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Navbar></Navbar>
+          <Switch>
+            <Route exact path="/">
+              <Home movies={movies} />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+            <Route exact path="/details/:id">
+              <Details />
+            </Route>
+            <Route exact path="/dashboard">
+              <Dashboard consultMovies={consultMovies} movies={movies} />
+            </Route>
+            <Route path="*">
+              <Error404 />
+            </Route>
+          </Switch>
+          <Footer />
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     color: "#fff",
     textDecoration: "none",
-    margin: "0 15px"
+    margin: "0 15px",
   },
 }));
 
@@ -40,6 +40,7 @@ export default function Navbar() {
             Login
           </Link>
           <Link
+            to="/#"
             onClick={() => {
               localStorage.removeItem("userInfo");
               history.push("/");

@@ -58,8 +58,8 @@ export default function UsersDash({ users, consultUsers }) {
         </TableHead>
         <TableBody>
           {users &&
-            users.map((user) => (
-              <TableRow key={user.id}>
+            users.map((user, i) => (
+              <TableRow key={i}>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.lastName}</TableCell>
                 <TableCell>{user.email}</TableCell>

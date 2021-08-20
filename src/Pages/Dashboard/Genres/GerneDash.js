@@ -22,8 +22,8 @@ export default function GenreDash({ genres }) {
         </TableHead>
         <TableBody>
           {genres &&
-            genres.map((genre) => (
-              <TableRow key={genre.id}>
+            genres.map((genre, i) => (
+              <TableRow key={i}>
                 <TableCell>{genre.name}</TableCell>
                 <TableCell>
                   <Button>
