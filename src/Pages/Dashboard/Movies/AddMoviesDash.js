@@ -15,9 +15,9 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-// import { date } from "date-fns/locale/af";
 import Swal from "sweetalert2";
 import Alert from "@material-ui/lab/Alert";
+import { format } from "date-fns/esm";
 
 const useStyles = makeStyles({
   depositContext: {
@@ -35,6 +35,8 @@ export default function AddMoviesDash({ consultMovies, genres }) {
   const [raiting, setRaiting] = useState(0);
   const [error, setError] = useState(false);
 
+  format(date, "dd-MM-yyyy");
+
   const URL = process.env.REACT_APP_API_MOVIES;
 
   const handleChange = (event) => {
@@ -43,6 +45,7 @@ export default function AddMoviesDash({ consultMovies, genres }) {
 
   const handleDateChange = (date) => {
     setDate(date);
+    console.log(format(date, "dd-MM-yyyy"));
   };
 
   const handleSubmit = async (e) => {
@@ -124,8 +127,8 @@ export default function AddMoviesDash({ consultMovies, genres }) {
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
-                label="Date picker dialog"
-                format="MM/dd/yyyy"
+                label="Release date"
+                format="dd-MM-yyyy"
                 value={date}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{

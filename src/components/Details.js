@@ -2,6 +2,8 @@ import { Box, makeStyles } from "@material-ui/core";
 import { Container, Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import PostComent from "./PostComent";
+import Coments from "./Coments";
 
 const useStyles = makeStyles({
   title: {
@@ -60,6 +62,8 @@ const Details = () => {
                 <strong>Raiting:</strong> {movie.raiting}/5
               </span>
             </div>
+            <PostComent></PostComent>
+            <Coments></Coments>
           </Grid>
         </Grid>
       </Box>

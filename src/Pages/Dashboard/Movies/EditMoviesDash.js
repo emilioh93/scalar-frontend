@@ -71,7 +71,6 @@ export default function EditMoviesDash({ movie, genres, setGenres, consultMovies
       name.trim() !== "" &&
       resume.trim() !== "" &&
       image.trim() !== "" &&
-      raiting.trim() !== "" &&
       date !== "" &&
       genre !== ""
     ) {
