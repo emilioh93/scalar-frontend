@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link, useHistory } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,8 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({ checkUser, logged, setLogged }) {
+export default function Navbar({ admin, setAdmin }) {
   const classes = useStyles();
+  const { user, setUser } = useContext(UserContext);
 
   let history = useHistory();
 
@@ -36,12 +38,13 @@ export default function Navbar({ checkUser, logged, setLogged }) {
           <Link to="/" variant="h6" className={classes.title}>
             Scalar Movies
           </Link>
-          {logged ? (
+          {user ? (
             <Link
               to="/#"
               onClick={() => {
                 localStorage.removeItem("userInfo");
-                setLogged(false);
+                setUser(null);
+                setAdmin(false);
                 history.push("/");
               }}
               className={classes.link}
@@ -54,9 +57,13 @@ export default function Navbar({ checkUser, logged, setLogged }) {
               Login
             </Link>
           )}
-          <Link to="/dashboard" className={classes.link} color="inherit">
-            Dashboard
-          </Link>
+          {admin ? (
+            <Link to="/dashboard" className={classes.link} color="inherit">
+              Dashboard
+            </Link>
+          ) : (
+            <></>
+          )}
         </Toolbar>
       </AppBar>
     </div>

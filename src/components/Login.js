@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,6 +14,7 @@ import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../Redux/actions/auth";
+import { UserContext } from "../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login({ setLogged }) {
+export default function Login({ logged, setLogged, checkRole }) {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,6 +45,7 @@ export default function Login({ setLogged }) {
   const URL = process.env.REACT_APP_API_LOGIN;
   const dispatch = useDispatch();
   let history = useHistory();
+  const { setUser } = useContext(UserContext);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -59,6 +61,8 @@ export default function Login({ setLogged }) {
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       setLogged(true);
+      setUser(data);
+      checkRole();
       setError(false);
       history.push("/");
     } catch (err) {
