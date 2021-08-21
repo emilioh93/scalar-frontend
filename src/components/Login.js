@@ -12,8 +12,6 @@ import Container from "@material-ui/core/Container";
 import Loader from "./Loader";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { login } from "../Redux/actions/auth";
 import { UserContext } from "../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,16 +34,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login({ logged, setLogged, checkRole }) {
+export default function Login() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const URL = process.env.REACT_APP_API_LOGIN;
-  const dispatch = useDispatch();
   let history = useHistory();
-  const { setUser } = useContext(UserContext);
+  const { login, setLogged } = useContext(UserContext);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -57,12 +54,10 @@ export default function Login({ logged, setLogged, checkRole }) {
       };
       setLoading(true);
       const { data } = await axios.post(URL, { email, password }, config);
-      dispatch(login(data.token, data.email));
+      login(data);
+      setLogged(true);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      setLogged(true);
-      setUser(data);
-      checkRole();
       setError(false);
       history.push("/");
     } catch (err) {

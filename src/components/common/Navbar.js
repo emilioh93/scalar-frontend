@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,11 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({ admin, setAdmin }) {
+export default function Navbar() {
   const classes = useStyles();
-  const { user, setUser } = useContext(UserContext);
-
-  let history = useHistory();
+  const { user, admin, logout } = useContext(UserContext);
 
   return (
     <div className={classes.root}>
@@ -41,12 +39,7 @@ export default function Navbar({ admin, setAdmin }) {
           {user ? (
             <Link
               to="/#"
-              onClick={() => {
-                localStorage.removeItem("userInfo");
-                setUser(null);
-                setAdmin(false);
-                history.push("/");
-              }}
+              onClick={logout}
               className={classes.link}
               color="inherit"
             >
@@ -57,7 +50,7 @@ export default function Navbar({ admin, setAdmin }) {
               Login
             </Link>
           )}
-          {admin ? (
+          {admin === "Admin" ? (
             <Link to="/dashboard" className={classes.link} color="inherit">
               Dashboard
             </Link>
