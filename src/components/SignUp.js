@@ -160,10 +160,10 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="confirm password"
+                name="confirmPassword"
                 label="Comfirm Password"
                 type="password"
-                id="password"
+                id="confirmPassword"
                 autoComplete="current-password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
