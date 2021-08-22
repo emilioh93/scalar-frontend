@@ -14,24 +14,43 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = ({ movies }) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    age: "",
-    name: "hai",
-  });
+  const [value, setValue] = React.useState("");
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    sortMovies(e.target.value);
   };
-  // useEffect(() => {
-  //   const userInfo = localStorage.getItem("userInfo");
-  //   if (userInfo) {
-  //     history.push("/");
-  //   }
-  // }, [history]);
+
+  const sortMovies = (e) => {
+    if (e === "10") {
+      movies.sort((a, b) => {
+        console.log("Ordenar por nombre");
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          return -1;
+        }
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+    } else if (e === "20") {
+      movies.sort((a, b) => {
+        console.log("Ordenar por date");
+        if (a.date.toLowerCase() < b.date.toLowerCase()) {
+          return -1;
+        }
+        if (a.date.toLowerCase() > b.date.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+    } else if (e === "30") {
+      movies.sort((a, b) => {
+        console.log("Ordenar por raiting");
+        return b.raiting - a.raiting;
+      });
+    }
+  };
 
   return (
     <Container>
@@ -39,23 +58,17 @@ const Home = ({ movies }) => {
         <h1>NOW PLAYING & COMING SOON</h1>
       </div>
       <div>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel htmlFor="outlined-age-native-simple">Sort by</InputLabel>
-        <Select
-          native
-          value={state.age}
-          onChange={handleChange}
-          label="Age"
-          inputProps={{
-            name: 'age',
-            id: 'outlined-age-native-simple',
-          }}
-        >
-          <option aria-label="None" value="" />
-          <option value={10}>Date</option>
-          <option value={20}>Raiting</option>
-        </Select>
-      </FormControl>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel htmlFor="outlined-option-native-simple">
+            Sort by
+          </InputLabel>
+          <Select value={value} native onChange={handleChange} label="Option">
+            <option aria-label="None" value="" />
+            <option value="10">Name</option>
+            <option value="20">Date</option>
+            <option value="30">Raiting</option>
+          </Select>
+        </FormControl>
       </div>
       <MovieList movies={movies}></MovieList>
     </Container>

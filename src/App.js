@@ -45,7 +45,7 @@ function App() {
             <Route exact path="/details/:id">
               <Details />
             </Route>
-            <Route
+            {/* <Route
               exact
               path="/dashboard"
               render={() => {
@@ -55,7 +55,10 @@ function App() {
                   <Redirect to="/"></Redirect>
                 );
               }}
-            ></Route>
+            ></Route> */}
+            <Route exact path="/dashboard">
+              <Dashboard consultMovies={consultMovies} movies={movies} />
+            </Route>
             <Route path="*">
               <Error404 />
             </Route>
