@@ -2,8 +2,8 @@ import { Box, makeStyles } from "@material-ui/core";
 import { Container, Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PostComent from "./PostComent";
-import Coments from "./Coments";
+import PostComment from "./PostComment";
+import Comments from "./Comments";
 
 const useStyles = makeStyles({
   title: {
@@ -17,13 +17,16 @@ const useStyles = makeStyles({
 const Details = () => {
   const [movie, setMovie] = useState({});
   const URL = process.env.REACT_APP_API_MOVIES;
+  const URL_Comments = process.env.REACT_APP_API_COMMENTS;
   const { id } = useParams();
   const classes = useStyles();
+  const [comments, setComments] = useState();
 
-  useEffect(() => {
-    consultDetails();
-    // eslint-disable-next-line
-  }, []);
+  const consultComments = async () => {
+    await fetch(URL_Comments)
+      .then((response) => response.json())
+      .then((json) => setComments(json));
+  };
 
   const consultDetails = async () => {
     try {
@@ -36,6 +39,12 @@ const Details = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    consultComments();
+    consultDetails();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Container>
@@ -62,8 +71,11 @@ const Details = () => {
                 <strong>Raiting:</strong> {movie.raiting}/10
               </span>
             </div>
-            <PostComent id={id}></PostComent>
-            <Coments></Coments>
+            <PostComment
+              id={id}
+              consultComments={consultComments}
+            ></PostComment>
+            <Comments id={id} comments={comments}></Comments>
           </Grid>
         </Grid>
       </Box>

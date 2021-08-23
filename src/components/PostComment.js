@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PostComent({ id }) {
+export default function PostComent({ id, consultComments }) {
   const classes = useStyles();
   const [comment, setComment] = useState();
   const { user } = useContext(UserContext);
@@ -28,13 +28,12 @@ export default function PostComent({ id }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Msj", comment);
-    console.log("Movie:", id);
-    console.log("User:", user._id);
     if (comment.trim() !== "") {
       // Create object
       const commentObject = {
-        user: user._id,
+        user: user,
+        userName: user.firstName,
+        userLast: user.lastName,
         text: comment,
         movie: id,
       };
@@ -50,13 +49,12 @@ export default function PostComent({ id }) {
 
         // Alert
         const response = await fetch(URL, cabecera);
-        console.log(response);
         if (response.status === 201) {
           Swal.fire("Comment posted", "", "success");
           // Form reset
           e.target.reset();
           // Update
-          // consultMovies();
+          consultComments();
         }
       } catch (error) {
         console.log(error);
