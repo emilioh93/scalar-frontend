@@ -9,6 +9,7 @@ import { Button, makeStyles } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Swal from "sweetalert2";
 import EditMoviesDash from "./EditMoviesDash";
+import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -77,7 +78,9 @@ export default function MoviesDash({
               <TableRow key={i}>
                 <TableCell>{movie.name}</TableCell>
                 <TableCell>{movie.raiting}</TableCell>
-                <TableCell>{movie.date}</TableCell>
+                <TableCell>
+                  {format(new Date(movie.date), "MM/dd/yyyy")}
+                </TableCell>
                 <TableCell>{movie.genre}</TableCell>
                 <TableCell>
                   <img

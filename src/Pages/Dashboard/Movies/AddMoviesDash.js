@@ -17,7 +17,6 @@ import {
 } from "@material-ui/pickers";
 import Swal from "sweetalert2";
 import Alert from "@material-ui/lab/Alert";
-import { format } from "date-fns/esm";
 
 const useStyles = makeStyles({
   depositContext: {
@@ -27,15 +26,13 @@ const useStyles = makeStyles({
 
 export default function AddMoviesDash({ consultMovies, genres }) {
   const classes = useStyles();
-  const [date, setDate] = React.useState(new Date("2021-01-02"));
+  const [date, setDate] = React.useState(new Date("2014-08-18"));
   const [genre, setGenre] = useState("");
   const [name, setName] = useState("");
   const [resume, setResume] = useState("");
   const [image, setImage] = useState("");
   const [raiting, setRaiting] = useState(0);
   const [error, setError] = useState(false);
-
-  format(date, "dd-MM-yyyy");
 
   const URL = process.env.REACT_APP_API_MOVIES;
 
@@ -45,8 +42,9 @@ export default function AddMoviesDash({ consultMovies, genres }) {
 
   const handleDateChange = (date) => {
     setDate(date);
-    console.log(format(date, "dd-MM-yyyy"));
   };
+
+  console.log(date);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,7 +126,7 @@ export default function AddMoviesDash({ consultMovies, genres }) {
                 margin="normal"
                 id="date-picker-dialog"
                 label="Release date"
-                format="dd-MM-yyyy"
+                format="MM/dd/yyyy"
                 value={date}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{

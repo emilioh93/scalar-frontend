@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 import PostComment from "./PostComment";
 import Comments from "./Comments";
 import { UserContext } from "../Context/UserContext";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 const useStyles = makeStyles({
   title: {
@@ -64,7 +65,8 @@ const Details = () => {
             <p>{movie.resume}</p>
             <div>
               <span>
-                <strong>Release date:</strong> {movie.date}
+                <strong>Release date: </strong>
+                {movie.date && format(new Date(movie.date), "MM/dd/yyyy")}
               </span>
             </div>
             <div>

@@ -65,8 +65,8 @@ export default function EditMoviesDash({
     setGenre(event.target.value);
   };
 
-  const handleDateChange = (newDate) => {
-    setDate(newDate);
+  const handleDateChange = (date) => {
+    setDate(date);
   };
 
   const handleSubmit = async (e) => {
