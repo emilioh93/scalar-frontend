@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 import Swal from "sweetalert2";
 
 export const UserContext = createContext({});
@@ -27,6 +27,7 @@ const UserProvider = ({ children }) => {
     if (userStorage) {
       setLogged(true);
       console.log("There is a user logged in");
+      login(JSON.parse(userStorage));
     } else {
       console.log("No user logged in");
     }
@@ -44,8 +45,6 @@ const UserProvider = ({ children }) => {
       console.log("I can't check the role");
     }
   };
-
-  console.log(admin);
 
   return (
     <div>

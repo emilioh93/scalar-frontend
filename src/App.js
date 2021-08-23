@@ -9,11 +9,11 @@ import Details from "./components/Details";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { useState, useEffect, useContext } from "react";
 import Error404 from "./components/Error404";
-import UserProvider, { UserContext } from "./Context/UserContext";
+import { UserContext } from "./Context/UserContext";
 
 function App() {
   const [movies, setMovies] = useState();
-  const { admin } = useContext(UserContext);
+  const { admin, checkUser } = useContext(UserContext);
 
   const consultMovies = async () => {
     await fetch(process.env.REACT_APP_API_MOVIES)
@@ -23,50 +23,45 @@ function App() {
 
   useEffect(() => {
     consultMovies();
+    checkUser();
   }, []);
 
-  console.log({ admin });
-
   return (
-    <div>
-      <UserProvider>
-        <BrowserRouter>
-          <Navbar></Navbar>
-          <Switch>
-            <Route exact path="/">
-              <Home movies={movies} />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/signup">
-              <SignUp />
-            </Route>
-            <Route exact path="/details/:id">
-              <Details />
-            </Route>
-            {/* <Route
-              exact
-              path="/dashboard"
-              render={() => {
-                return admin === "Admin" ? (
-                  <Dashboard consultMovies={consultMovies} movies={movies} />
-                ) : (
-                  <Redirect to="/"></Redirect>
-                );
-              }}
-            ></Route> */}
-            <Route exact path="/dashboard">
+    <BrowserRouter>
+      <Navbar></Navbar>
+      <Switch>
+        <Route exact path="/">
+          <Home movies={movies} />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/details/:id">
+          <Details />
+        </Route>
+        <Route
+          exact
+          path="/dashboard"
+          render={() => {
+            return admin === "Admin" ? (
               <Dashboard consultMovies={consultMovies} movies={movies} />
-            </Route>
-            <Route path="*">
-              <Error404 />
-            </Route>
-          </Switch>
-          <Footer />
-        </BrowserRouter>
-      </UserProvider>
-    </div>
+            ) : (
+              <Redirect to="/"></Redirect>
+            );
+          }}
+        ></Route>
+        {/* <Route exact path="/dashboard">
+              <Dashboard consultMovies={consultMovies} movies={movies} />
+            </Route> */}
+        <Route path="*">
+          <Error404 />
+        </Route>
+      </Switch>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

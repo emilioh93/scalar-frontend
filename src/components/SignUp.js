@@ -10,7 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useState } from "react";
-import Alert from "@material-ui/lab/Alert";
 import Swal from "sweetalert2";
 import Loader from "./Loader";
 import axios from "axios";
@@ -42,52 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  // const [name, setName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const URL = process.env.REACT_APP_API_USERS;
   let history = useHistory();
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (
-  //     name.trim() !== "" &&
-  //     lastName.trim() !== "" &&
-  //     email.trim() !== "" &&
-  //     password.trim() !== "" &&
-  //     password === confirmPassword
-  //   ) {
-  //     setError(false);
-  //     try {
-  //       setLoading(true);
-  //       const config = {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       };
-  //       const { data } = await axios.post(
-  //         URL,
-  //         { name, lastName, email, password, role: "Regular" },
-  //         config
-  //       );
-  //       localStorage.setItem("userInfo", JSON.stringify(data));
-  //       setLoading(false);
-  //       setError(false);
-  //       Swal.fire("User was successfully registered", "", "success");
-  //       history.push("/");
-  //     } catch (err) {
-  //       console.log(err);
-  //       setLoading(false);
-  //       setError(true);
-  //     }
-  //   } else {
-  //     setError(true);
-  //   }
-  // };
 
   return (
     <Container component="main" maxWidth="xs">
