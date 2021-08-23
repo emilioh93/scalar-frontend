@@ -62,7 +62,7 @@ const Details = () => {
                 <strong>Raiting:</strong> {movie.raiting}/10
               </span>
             </div>
-            <PostComent></PostComent>
+            <PostComent id={id}></PostComent>
             <Coments></Coments>
           </Grid>
         </Grid>

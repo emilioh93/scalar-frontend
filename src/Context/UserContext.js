@@ -12,7 +12,6 @@ const UserProvider = ({ children }) => {
   const login = (data) => {
     setUser(data);
     setLogged(true);
-    console.log(data.role);
     checkRole(data.role);
   };
 
@@ -26,10 +25,8 @@ const UserProvider = ({ children }) => {
   const checkUser = () => {
     if (userStorage) {
       setLogged(true);
-      console.log("There is a user logged in");
       login(JSON.parse(userStorage));
     } else {
-      console.log("No user logged in");
     }
   };
 
@@ -37,9 +34,9 @@ const UserProvider = ({ children }) => {
     if (user) {
       if (user === "Admin") {
         setAdmin(user);
-        console.log("Is admin user");
+        // console.log("Is admin user");
       } else {
-        console.log("Is regular user");
+        // console.log("Is regular user");
       }
     } else {
       console.log("I can't check the role");

@@ -17,7 +17,6 @@ const Home = ({ movies }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState("");
   const { user } = useContext(UserContext);
-  console.log(user);
 
   const handleChange = (e) => {
     setValue(e.target.value);
