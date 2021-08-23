@@ -36,6 +36,13 @@ export default function Navbar() {
           <Link to="/" variant="h6" className={classes.title}>
             Scalar Movies
           </Link>
+          {admin === "Admin" ? (
+            <Link to="/dashboard" className={classes.link} color="inherit">
+              Dashboard
+            </Link>
+          ) : (
+            <></>
+          )}
           {user ? (
             <Link
               to="/#"
@@ -49,13 +56,6 @@ export default function Navbar() {
             <Link to="/login" className={classes.link} color="inherit">
               Login
             </Link>
-          )}
-          {admin === "Admin" ? (
-            <Link to="/dashboard" className={classes.link} color="inherit">
-              Dashboard
-            </Link>
-          ) : (
-            <></>
           )}
         </Toolbar>
       </AppBar>

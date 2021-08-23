@@ -99,7 +99,7 @@ export default function AddMoviesDash({ consultMovies, genres }) {
   };
 
   return (
-    <React.Fragment>
+    <div id="addMovie">
       <Title>Add new movie</Title>
       <form
         onSubmit={handleSubmit}
@@ -180,6 +180,6 @@ export default function AddMoviesDash({ consultMovies, genres }) {
           <Alert severity="error">Something went wrong!</Alert>
         ) : null}
       </form>
-    </React.Fragment>
+    </div>
   );
 }

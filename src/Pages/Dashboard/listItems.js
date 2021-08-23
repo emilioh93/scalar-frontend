@@ -4,47 +4,52 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
-import MovieIcon from '@material-ui/icons/Movie';
-import AddIcon from '@material-ui/icons/Add';
-import TheatersIcon from '@material-ui/icons/Theaters';
+import MovieIcon from "@material-ui/icons/Movie";
+import AddIcon from "@material-ui/icons/Add";
+import TheatersIcon from "@material-ui/icons/Theaters";
+import { HashLink as Link } from "react-router-hash-link";
 
 export const mainListItems = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <MovieIcon />
-      </ListItemIcon>
-      <ListItemText primary="Movies" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AddIcon />
-      </ListItemIcon>
-      <ListItemText primary="Add Movie" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <TheatersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Genres" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AddIcon />
-      </ListItemIcon>
-      <ListItemText primary="Add Genre" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Users" />
-    </ListItem>
+    <Link to="#listMovies">
+      <ListItem>
+        <ListItemIcon>
+          <MovieIcon />
+        </ListItemIcon>
+        <ListItemText primary="Movies" />
+      </ListItem>
+    </Link>
+    <Link to="#addMovie">
+      <ListItem>
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Add Movie" />
+      </ListItem>
+    </Link>
+    <Link to="#listGenres">
+      <ListItem>
+        <ListItemIcon>
+          <TheatersIcon />
+        </ListItemIcon>
+        <ListItemText primary="Genres" />
+      </ListItem>
+    </Link>
+    <Link to="#addGenre">
+      <ListItem>
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Add Genre" />
+      </ListItem>
+    </Link>
+    <Link to="#listUsers">
+      <ListItem>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Users" />
+      </ListItem>
+    </Link>
   </div>
 );

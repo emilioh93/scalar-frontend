@@ -44,7 +44,7 @@ export default function UsersDash({ users, consultUsers }) {
   };
 
   return (
-    <React.Fragment>
+    <div id="listUsers">
       <Title>List of users</Title>
       <Table size="small">
         <TableHead>
@@ -75,6 +75,6 @@ export default function UsersDash({ users, consultUsers }) {
             ))}
         </TableBody>
       </Table>
-    </React.Fragment>
+    </div>
   );
 }

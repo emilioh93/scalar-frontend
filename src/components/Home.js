@@ -1,7 +1,8 @@
 import { Container, FormControl, InputLabel, Select } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
 import MovieList from "./MovieList";
+import { UserContext } from "../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -15,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({ movies }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState("");
+  const { user } = useContext(UserContext);
+  console.log(user);
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -56,6 +59,7 @@ const Home = ({ movies }) => {
     <Container>
       <div className={classes.title}>
         <h1>NOW PLAYING & COMING SOON</h1>
+        {user ? <h3>Hello {user.firstName} 👋</h3> : <></>}
       </div>
       <div>
         <FormControl variant="outlined" className={classes.formControl}>

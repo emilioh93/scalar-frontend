@@ -20,6 +20,7 @@ import AddMoviesDash from "./Movies/AddMoviesDash.js";
 import UsersDash from "./Users/UsersDash.js";
 import GenreDash from "./Genres/GerneDash";
 import AddGenresDash from "./Genres/AddGenresDash";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -60,6 +61,13 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  link: {
+    marginLeft: "auto",
+    padding: "20px",
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "18px"
   },
   drawerPaper: {
     position: "relative",
@@ -136,7 +144,7 @@ export default function Dashboard({ consultMovies, movies }) {
   }, []);
 
   return (
-    <div className={classes.root}>
+    <div id="dashboard" className={classes.root}>
       <CssBaseline />
       <AppBar
         position="absolute"
@@ -164,6 +172,9 @@ export default function Dashboard({ consultMovies, movies }) {
           >
             Dashboard
           </Typography>
+          <Link to="/" className={classes.link}>
+            Home
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer

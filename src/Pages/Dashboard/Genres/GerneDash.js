@@ -11,7 +11,7 @@ import { Button } from "@material-ui/core";
 
 export default function GenreDash({ genres }) {
   return (
-    <React.Fragment>
+    <div id="listGenres">
       <Title>List of genres</Title>
       <Table size="small">
         <TableHead>
@@ -37,6 +37,6 @@ export default function GenreDash({ genres }) {
             ))}
         </TableBody>
       </Table>
-    </React.Fragment>
+    </div>
   );
 }

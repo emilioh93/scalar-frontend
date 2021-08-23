@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,6 +15,7 @@ import Loader from "./Loader";
 import axios from "axios";
 import { Formik, Form, ErrorMessage } from "formik";
 import { FormHelperText } from "@material-ui/core";
+import { UserContext } from "../Context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,6 +44,7 @@ export default function SignUp() {
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const URL = process.env.REACT_APP_API_USERS;
+  const { login } = useContext(UserContext);
   let history = useHistory();
 
   return (
@@ -128,6 +130,7 @@ export default function SignUp() {
               setLoading(false);
               resetForm();
               Swal.fire("User was successfully registered", "", "success");
+              login(data)
               history.push("/");
             } catch (err) {
               console.log(err);

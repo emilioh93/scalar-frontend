@@ -58,7 +58,7 @@ export default function MoviesDash({
   };
 
   return (
-    <React.Fragment>
+    <div id="listMovies">
       <Title>List of movies</Title>
       <Table size="small">
         <TableHead>
@@ -105,6 +105,6 @@ export default function MoviesDash({
             ))}
         </TableBody>
       </Table>
-    </React.Fragment>
+    </div>
   );
 }

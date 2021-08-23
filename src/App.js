@@ -24,7 +24,9 @@ function App() {
   useEffect(() => {
     consultMovies();
     checkUser();
+    // eslint-disable-next-line
   }, []);
+
 
   return (
     <BrowserRouter>

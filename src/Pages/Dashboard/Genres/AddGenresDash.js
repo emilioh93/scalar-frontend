@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddGenresDash({consultGenres}) {
+export default function AddGenresDash({ consultGenres }) {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
@@ -56,7 +56,7 @@ export default function AddGenresDash({consultGenres}) {
   };
 
   return (
-    <React.Fragment>
+    <div id="addGenre">
       <Title>Add new genre</Title>
       <form
         onSubmit={handleSubmit}
@@ -77,6 +77,6 @@ export default function AddGenresDash({consultGenres}) {
           <Alert severity="error">Something went wrong!</Alert>
         ) : null}
       </form>
-    </React.Fragment>
+    </div>
   );
 }
