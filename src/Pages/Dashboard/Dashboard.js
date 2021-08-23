@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     color: "#fff",
     textDecoration: "none",
-    fontSize: "18px"
+    fontSize: "18px",
   },
   drawerPaper: {
     position: "relative",
@@ -215,7 +215,11 @@ export default function Dashboard({ consultMovies, movies }) {
             <hr />
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <GenreDash consultGenres={consultGenres} genres={genres} />
+                <GenreDash
+                  consultGenres={consultGenres}
+                  genres={genres}
+                  setGenres={setGenres}
+                />
               </Paper>
             </Grid>
             <Grid item xs={12}>
