@@ -102,19 +102,21 @@ export default function SignUp() {
         {loading && <Loader></Loader>}
         <Formik
           initialValues={{
-            name: "",
+            firstName: "",
             lastName: "",
             email: "",
             password: "",
             confirmPassword: "",
+            role: "Regular",
           }}
           validate={(valores) => {
             let errores = {};
             // Name validation
-            if (!valores.name) {
-              errores.name = "Please enter a name";
-            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.name)) {
-              errores.name = "The name can only contain letters and spaces";
+            if (!valores.firstName) {
+              errores.firstName = "Please enter a name";
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.firstName)) {
+              errores.firstName =
+                "The name can only contain letters and spaces";
             }
             // Last Name validation
             if (!valores.lastName) {
@@ -156,10 +158,25 @@ export default function SignUp() {
 
             return errores;
           }}
-          onSubmit={(valores, { resetForm }) => {
-            resetForm();
-            Swal.fire("User was successfully registered", "", "success");
-            history.push("/");
+          onSubmit={async (valores, { resetForm }) => {
+            console.log(valores);
+            try {
+              setLoading(true);
+              const config = {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              };
+              const { data } = await axios.post(URL, valores, config);
+              localStorage.setItem("userInfo", JSON.stringify(data));
+              setLoading(false);
+              resetForm();
+              Swal.fire("User was successfully registered", "", "success");
+              history.push("/");
+            } catch (err) {
+              console.log(err);
+              setLoading(false);
+            }
           }}
         >
           {({ handleChange, values, handleBlur, errors }) => (
@@ -168,21 +185,21 @@ export default function SignUp() {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     autoComplete="fname"
-                    name="name"
+                    name="firstName"
                     variant="outlined"
                     fullWidth
-                    id="name"
+                    id="firstName"
                     label="First Name"
                     autoFocus
-                    value={values.name}
+                    value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
                   <ErrorMessage
-                    name="name"
+                    name="firstName"
                     component={() => (
                       <FormHelperText className={classes.helper}>
-                        {errors.name}
+                        {errors.firstName}
                       </FormHelperText>
                     )}
                   ></ErrorMessage>
