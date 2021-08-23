@@ -59,7 +59,7 @@ const Details = () => {
             </div>
             <div>
               <span>
-                <strong>Raiting:</strong> {movie.raiting}/5
+                <strong>Raiting:</strong> {movie.raiting}/10
               </span>
             </div>
             <PostComent></PostComent>

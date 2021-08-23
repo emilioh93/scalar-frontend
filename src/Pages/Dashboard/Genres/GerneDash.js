@@ -8,8 +8,42 @@ import Title from "../Title";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { Button } from "@material-ui/core";
+import Swal from "sweetalert2";
 
-export default function GenreDash({ genres }) {
+export default function GenreDash({ genres, consultGenres }) {
+  const deleteMovie = (code) => {
+    Swal.fire({
+      title: "Are you sure you want to delete the genre?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // DELETE
+        try {
+          const URL = process.env.REACT_APP_API_GENRES + "/" + code;
+          const response = await fetch(URL, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (response.status === 200) {
+            Swal.fire("The genre was removed", "", "success");
+            // Update list
+            consultGenres();
+          }
+        } catch (error) {
+          console.log(error);
+          Swal.fire("Error", "", "warning");
+        }
+      }
+    });
+  };
+
   return (
     <div id="listGenres">
       <Title>List of genres</Title>
@@ -30,7 +64,9 @@ export default function GenreDash({ genres }) {
                     <EditIcon></EditIcon>
                   </Button>
                   <Button>
-                    <DeleteIcon></DeleteIcon>
+                    <DeleteIcon
+                      onClick={() => deleteMovie(genre._id)}
+                    ></DeleteIcon>
                   </Button>
                 </TableCell>
               </TableRow>
