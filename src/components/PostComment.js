@@ -51,9 +51,7 @@ export default function PostComent({ id, consultComments }) {
         const response = await fetch(URL, cabecera);
         if (response.status === 201) {
           Swal.fire("Comment posted", "", "success");
-          // Form reset
           e.target.reset();
-          // Update
           consultComments();
         }
       } catch (error) {

@@ -1,9 +1,11 @@
 import { Box, makeStyles } from "@material-ui/core";
 import { Container, Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PostComment from "./PostComment";
 import Comments from "./Comments";
+import { UserContext } from "../Context/UserContext";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
   title: {
@@ -11,6 +13,9 @@ const useStyles = makeStyles({
   },
   image: {
     width: "100%",
+  },
+  plaseLogin: {
+    padding: "30px 0",
   },
 });
 
@@ -21,6 +26,7 @@ const Details = () => {
   const { id } = useParams();
   const classes = useStyles();
   const [comments, setComments] = useState();
+  const { user } = useContext(UserContext);
 
   const consultComments = async () => {
     await fetch(URL_Comments)
@@ -71,10 +77,19 @@ const Details = () => {
                 <strong>Raiting:</strong> {movie.raiting}/10
               </span>
             </div>
-            <PostComment
-              id={id}
-              consultComments={consultComments}
-            ></PostComment>
+            {user ? (
+              <PostComment
+                id={id}
+                consultComments={consultComments}
+              ></PostComment>
+            ) : (
+              <div className={classes.plaseLogin}>
+                <h2>Comments</h2>
+                <span>
+                  To post comments, please <Link to="/login">log in.</Link>
+                </span>
+              </div>
+            )}
             <Comments id={id} comments={comments}></Comments>
           </Grid>
         </Grid>
