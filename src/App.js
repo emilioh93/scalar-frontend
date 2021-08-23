@@ -14,6 +14,7 @@ import { UserContext } from "./Context/UserContext";
 function App() {
   const [movies, setMovies] = useState();
   const { admin, checkUser } = useContext(UserContext);
+  const [navbarFlag, setNavbarFlag] = useState(true);
 
   const consultMovies = async () => {
     await fetch(process.env.REACT_APP_API_MOVIES)
@@ -27,10 +28,9 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-
   return (
     <BrowserRouter>
-      <Navbar></Navbar>
+      <Navbar navbarFlag={navbarFlag}></Navbar>
       <Switch>
         <Route exact path="/">
           <Home movies={movies} />
@@ -49,15 +49,16 @@ function App() {
           path="/dashboard"
           render={() => {
             return admin === "Admin" ? (
-              <Dashboard consultMovies={consultMovies} movies={movies} />
+              <Dashboard
+                setNavbarFlag={setNavbarFlag}
+                consultMovies={consultMovies}
+                movies={movies}
+              />
             ) : (
               <Redirect to="/"></Redirect>
             );
           }}
         ></Route>
-        {/* <Route exact path="/dashboard">
-              <Dashboard consultMovies={consultMovies} movies={movies} />
-            </Route> */}
         <Route path="*">
           <Error404 />
         </Route>

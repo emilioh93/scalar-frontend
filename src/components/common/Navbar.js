@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ navbarFlag }) {
   const classes = useStyles();
   const { user, admin, logout } = useContext(UserContext);
 
-  return (
+  return navbarFlag ? (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.links}>
@@ -60,5 +60,5 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
     </div>
-  );
+  ) : null;
 }

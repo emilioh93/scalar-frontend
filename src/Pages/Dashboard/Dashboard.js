@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard({ consultMovies, movies }) {
+export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [users, setUsers] = useState();
@@ -141,7 +141,9 @@ export default function Dashboard({ consultMovies, movies }) {
     consultUsers();
     consultGenres();
     // eslint-disable-next-line
-  }, []);
+    setNavbarFlag(false);
+    return () => setNavbarFlag(true);
+  }, [setNavbarFlag]);
 
   return (
     <div id="dashboard" className={classes.root}>
