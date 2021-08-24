@@ -8,7 +8,7 @@ const MovieList = ({ movies }) => {
       {movies &&
         movies.map((movie, i) => {
           return (
-            <Grid key={i} item xs={12} sm={4} lg={3}>
+            <Grid key={i} item xs={6} sm={4} lg={3}>
               <MovieCard movie={movie}></MovieCard>
             </Grid>
           );

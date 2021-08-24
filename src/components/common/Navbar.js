@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
+import logo from "../../images/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,11 +18,16 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     textDecoration: "none",
     fontSize: "larger",
+    display: "flex",
+    alignItems: "center",
   },
   link: {
     color: "#fff",
     textDecoration: "none",
     margin: "0 15px",
+  },
+  logo: {
+    width: "5%",
   },
 }));
 
@@ -34,7 +40,8 @@ export default function Navbar({ navbarFlag }) {
       <AppBar position="static">
         <Toolbar className={classes.links}>
           <Link to="/" variant="h6" className={classes.title}>
-            Scalar Movies
+            <img className={classes.logo} src={logo} alt="Logo Scalar Movies" />{" "}
+            <span>Scalar Movies</span>
           </Link>
           {admin === "Admin" ? (
             <Link to="/dashboard" className={classes.link} color="inherit">

@@ -6,6 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 const useStyles = makeStyles({
   root: {
@@ -31,8 +32,10 @@ export default function MediaCard({ movie }) {
       <CardActionArea>
         <img className={classes.media} src={movie.image} alt={movie.name} />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {movie.name}
+          <Typography gutterBottom variant="h6">
+            {`${movie.name} (${
+              movie.date && format(new Date(movie.date), "yyyy")
+            })`}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {movie.raiting}/10
