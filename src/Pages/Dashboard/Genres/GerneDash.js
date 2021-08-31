@@ -60,14 +60,14 @@ export default function GenreDash({ genres, consultGenres, setGenres }) {
               <TableRow key={i}>
                 <TableCell>{genre.name}</TableCell>
                 <TableCell>
-                  <Button>
+                  <Button color="primary">
                     <EditGenreDash
                       genre={genre}
                       setGenres={setGenres}
                       consultGenres={consultGenres}
                     />
                   </Button>
-                  <Button>
+                  <Button color="secondary">
                     <DeleteIcon
                       onClick={() => deleteMovie(genre._id)}
                     ></DeleteIcon>

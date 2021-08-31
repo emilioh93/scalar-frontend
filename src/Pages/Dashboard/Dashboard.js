@@ -159,7 +159,7 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
     <div id="dashboard" className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="absolute"
+        position="fixed"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>

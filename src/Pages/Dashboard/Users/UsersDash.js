@@ -65,7 +65,7 @@ export default function UsersDash({ users, consultUsers }) {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.role}</TableCell>
                 <TableCell>
-                  <Button>
+                  <Button color="secondary">
                     <DeleteIcon
                       onClick={() => deleteUser(user._id)}
                     ></DeleteIcon>

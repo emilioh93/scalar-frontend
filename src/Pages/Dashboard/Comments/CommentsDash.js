@@ -68,7 +68,7 @@ export default function CommentsDash({ comments, movies, users, consultComments 
                 </TableCell>
                 <TableCell>{comment.text}</TableCell>
                 <TableCell>
-                  <Button>
+                  <Button color="secondary">
                     <DeleteIcon
                       onClick={() => deleteComment(comment._id)}
                     ></DeleteIcon>
