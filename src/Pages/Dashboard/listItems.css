@@ -1,0 +1,13 @@
+* {
+    scroll-behavior: smooth;
+}
+
+.links {
+    text-decoration: none;
+    color: rgb(85, 83, 83);
+    font-weight: bold;
+}
+
+.links:hover {
+    color: black;
+}

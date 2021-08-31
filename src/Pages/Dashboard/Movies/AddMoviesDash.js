@@ -44,8 +44,6 @@ export default function AddMoviesDash({ consultMovies, genres }) {
     setDate(date);
   };
 
-  console.log(date);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Validations

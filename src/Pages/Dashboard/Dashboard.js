@@ -21,6 +21,7 @@ import UsersDash from "./Users/UsersDash.js";
 import GenreDash from "./Genres/GerneDash";
 import AddGenresDash from "./Genres/AddGenresDash";
 import { Link } from "react-router-dom";
+import CommentsDash from "./Comments/CommentsDash";
 
 const drawerWidth = 240;
 
@@ -115,6 +116,7 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
   const [open, setOpen] = React.useState(false);
   const [users, setUsers] = useState();
   const [genres, setGenres] = useState();
+  const [comments, setComments] = useState();
 
   const consultUsers = async () => {
     const URL = process.env.REACT_APP_API_USERS;
@@ -130,6 +132,13 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
       .then((json) => setGenres(json));
   };
 
+  const consultComments = async () => {
+    const URL = process.env.REACT_APP_API_COMMENTS;
+    await fetch(URL)
+      .then((response) => response.json())
+      .then((json) => setComments(json));
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -140,6 +149,7 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
   useEffect(() => {
     consultUsers();
     consultGenres();
+    consultComments();
     // eslint-disable-next-line
     setNavbarFlag(false);
     return () => setNavbarFlag(true);
@@ -149,7 +159,7 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
     <div id="dashboard" className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="absolute"
+        position="fixed"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>
@@ -233,6 +243,17 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <UsersDash users={users} consultUsers={consultUsers} />
+              </Paper>
+            </Grid>
+            <hr />
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <CommentsDash
+                  comments={comments}
+                  movies={movies}
+                  users={users}
+                  consultComments={consultComments}
+                />
               </Paper>
             </Grid>
           </Grid>

@@ -13,8 +13,11 @@ import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   img: {
-    width: "20%",
+    width: "30%",
   },
+  headImage:{
+    width: "25%",
+  }
 }));
 
 export default function MoviesDash({
@@ -65,11 +68,13 @@ export default function MoviesDash({
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Raiting</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Genre</TableCell>
-            <TableCell>Image</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell align="center">Raiting</TableCell>
+            <TableCell align="center">Date</TableCell>
+            <TableCell align="center">Genre</TableCell>
+            <TableCell align="center" className={classes.headImage}>
+              Image
+            </TableCell>
+            <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,20 +82,20 @@ export default function MoviesDash({
             movies.map((movie, i) => (
               <TableRow key={i}>
                 <TableCell>{movie.name}</TableCell>
-                <TableCell>{movie.raiting}</TableCell>
-                <TableCell>
+                <TableCell align="center">{movie.raiting}</TableCell>
+                <TableCell align="center">
                   {format(new Date(movie.date), "MM/dd/yyyy")}
                 </TableCell>
-                <TableCell>{movie.genre}</TableCell>
-                <TableCell>
+                <TableCell align="center">{movie.genre}</TableCell>
+                <TableCell align="center">
                   <img
                     className={classes.img}
                     src={movie.image}
                     alt={movie.name}
                   />
                 </TableCell>
-                <TableCell>
-                  <Button>
+                <TableCell align="center">
+                  <Button color="primary">
                     <EditMoviesDash
                       movie={movie}
                       genres={genres}
@@ -98,7 +103,7 @@ export default function MoviesDash({
                       consultMovies={consultMovies}
                     />
                   </Button>
-                  <Button>
+                  <Button color="secondary">
                     <DeleteIcon
                       onClick={() => deleteMovie(movie._id)}
                     ></DeleteIcon>

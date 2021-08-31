@@ -6,11 +6,13 @@ import PeopleIcon from "@material-ui/icons/People";
 import MovieIcon from "@material-ui/icons/Movie";
 import AddIcon from "@material-ui/icons/Add";
 import TheatersIcon from "@material-ui/icons/Theaters";
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import { HashLink as Link } from "react-router-hash-link";
+import "./listItems.css";
 
 export const mainListItems = (
   <div>
-    <Link to="#listMovies">
+    <Link to="#listMovies" className="links">
       <ListItem>
         <ListItemIcon>
           <MovieIcon />
@@ -18,7 +20,7 @@ export const mainListItems = (
         <ListItemText primary="Movies" />
       </ListItem>
     </Link>
-    <Link to="#addMovie">
+    <Link to="#addMovie" className="links">
       <ListItem>
         <ListItemIcon>
           <AddIcon />
@@ -26,7 +28,7 @@ export const mainListItems = (
         <ListItemText primary="Add Movie" />
       </ListItem>
     </Link>
-    <Link to="#listGenres">
+    <Link to="#listGenres" className="links">
       <ListItem>
         <ListItemIcon>
           <TheatersIcon />
@@ -34,7 +36,7 @@ export const mainListItems = (
         <ListItemText primary="Genres" />
       </ListItem>
     </Link>
-    <Link to="#addGenre">
+    <Link to="#addGenre" className="links">
       <ListItem>
         <ListItemIcon>
           <AddIcon />
@@ -42,12 +44,20 @@ export const mainListItems = (
         <ListItemText primary="Add Genre" />
       </ListItem>
     </Link>
-    <Link to="#listUsers">
+    <Link to="#listUsers" className="links">
       <ListItem>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Users" />
+      </ListItem>
+    </Link>
+    <Link to="#listComments" className="links">
+      <ListItem>
+        <ListItemIcon>
+          <ChatBubbleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Comments" />
       </ListItem>
     </Link>
   </div>
