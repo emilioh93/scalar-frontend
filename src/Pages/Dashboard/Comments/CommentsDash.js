@@ -9,40 +9,44 @@ import { Button } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Swal from "sweetalert2";
 
-export default function CommentsDash({ comments, movies, users, consultComments }) {
-  
-    const deleteComment = (code) => {
-      Swal.fire({
-        title: "Are you sure you want to delete this comment?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          // DELETE
-          try {
-            const URL = process.env.REACT_APP_API_COMMENTS + "/" + code;
-            const response = await fetch(URL, {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
-            if (response.status === 200) {
-              Swal.fire("The comment was removed", "", "success");
-              // Update list of movies
-              consultComments();
-            }
-          } catch (error) {
-            console.log(error);
-            Swal.fire("Error", "", "warning");
+export default function CommentsDash({
+  comments,
+  movies,
+  users,
+  consultComments,
+}) {
+  const deleteComment = (code) => {
+    Swal.fire({
+      title: "Are you sure you want to delete this comment?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // DELETE
+        try {
+          const URL = process.env.REACT_APP_API_COMMENTS + "/" + code;
+          const response = await fetch(URL, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (response.status === 200) {
+            Swal.fire("The comment was removed", "", "success");
+            // Update list of movies
+            consultComments();
           }
+        } catch (error) {
+          console.log(error);
+          Swal.fire("Error", "", "warning");
         }
-      });
-    };
+      }
+    });
+  };
 
   return (
     <div id="listComments">
@@ -61,10 +65,10 @@ export default function CommentsDash({ comments, movies, users, consultComments 
             comments.map((comment, i) => (
               <TableRow key={i}>
                 <TableCell>
-                  {users.find((u) => comment.user === u._id).email}
+                  {users && users.find((u) => comment.user === u._id).email}
                 </TableCell>
                 <TableCell>
-                  {movies.find((m) => comment.movie === m._id).name}
+                  {movies && movies.find((m) => comment.movie === m._id).name}
                 </TableCell>
                 <TableCell>{comment.text}</TableCell>
                 <TableCell>

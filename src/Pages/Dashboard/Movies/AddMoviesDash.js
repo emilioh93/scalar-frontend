@@ -52,6 +52,8 @@ export default function AddMoviesDash({ consultMovies, genres }) {
       resume.trim() !== "" &&
       image.trim() !== "" &&
       raiting.trim() !== "" &&
+      raiting < 11 &&
+      raiting > 0 &&
       date !== "" &&
       genre !== ""
     ) {
@@ -77,7 +79,6 @@ export default function AddMoviesDash({ consultMovies, genres }) {
 
         // Alert
         const response = await fetch(URL, cabecera);
-        console.log(response);
         if (response.status === 201) {
           Swal.fire("Movie added", "", "success");
           // Form reset
@@ -93,6 +94,18 @@ export default function AddMoviesDash({ consultMovies, genres }) {
       setError(true);
     }
   };
+
+  const sortGenres =
+    genres &&
+    genres.sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return -1;
+      }
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return 1;
+      }
+      return 0;
+    });
 
   return (
     <div id="addMovie">
@@ -141,8 +154,8 @@ export default function AddMoviesDash({ consultMovies, genres }) {
               value={genre}
               onChange={handleChange}
             >
-              {genres &&
-                genres.map((genre, i) => {
+              {sortGenres &&
+                sortGenres.map((genre, i) => {
                   return (
                     <MenuItem key={i} value={genre.name}>
                       {genre.name}

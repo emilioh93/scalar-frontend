@@ -44,6 +44,16 @@ export default function GenreDash({ genres, consultGenres, setGenres }) {
     });
   };
 
+  const sortGenres = genres && genres.sort((a,b)=>{
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+      return -1;
+    }
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  })
+
   return (
     <div id="listGenres">
       <Title>List of genres</Title>
@@ -55,8 +65,8 @@ export default function GenreDash({ genres, consultGenres, setGenres }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {genres &&
-            genres.map((genre, i) => (
+          {sortGenres &&
+            sortGenres.map((genre, i) => (
               <TableRow key={i}>
                 <TableCell>{genre.name}</TableCell>
                 <TableCell>
