@@ -28,7 +28,7 @@ export default function PostComent({ id, consultComments }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.trim() !== "") {
+    if (comment.trim() !== "" && comment.length < 100) {
       // Create object
       const commentObject = {
         user: user,
@@ -59,7 +59,11 @@ export default function PostComent({ id, consultComments }) {
         Swal.fire("Error", "error");
       }
     } else {
-      // setError(true);
+      Swal.fire(
+        "Error",
+        "The comment exceeds the allowed number of characters (100)",
+        "error"
+      );
     }
   };
 
@@ -69,6 +73,7 @@ export default function PostComent({ id, consultComments }) {
       className={classes.root}
       noValidate
       autoComplete="off"
+      id="commentsForm"
     >
       <h3>Comments</h3>
       <Grid container spacing={3}>
@@ -78,7 +83,6 @@ export default function PostComent({ id, consultComments }) {
             id="outlined-basic"
             label="Write a comment"
             variant="outlined"
-            value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
         </Grid>
