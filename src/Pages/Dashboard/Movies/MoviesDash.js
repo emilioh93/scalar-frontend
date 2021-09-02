@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: "30%",
   },
-  headImage:{
+  headImage: {
     width: "25%",
-  }
+  },
 }));
 
 export default function MoviesDash({
@@ -25,8 +25,20 @@ export default function MoviesDash({
   movies,
   genres,
   setGenres,
+  ratings,
 }) {
   const classes = useStyles();
+  // const moviesFilter = movies && movies.map((movie) => movie._id);
+  // const ratingFilter =
+  //   ratings && ratings.filter((rating) => rating.movie === moviesFilter);
+  // const ratingMap = ratingFilter && ratingFilter.map((rating) => rating.value);
+  // let suma =
+  //   ratingMap &&
+  //   ratingMap.reduce((previous, current) => (current += previous), 0);
+  // let longitud = ratingMap && ratingMap.length;
+  // let promedio = suma / longitud;
+
+  // console.log(promedio);
 
   const deleteMovie = (code) => {
     Swal.fire({
@@ -68,7 +80,6 @@ export default function MoviesDash({
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align="center">Raiting</TableCell>
             <TableCell align="center">Date</TableCell>
             <TableCell align="center">Genre</TableCell>
             <TableCell align="center" className={classes.headImage}>
@@ -82,7 +93,6 @@ export default function MoviesDash({
             movies.map((movie, i) => (
               <TableRow key={i}>
                 <TableCell>{movie.name}</TableCell>
-                <TableCell align="center">{movie.raiting}</TableCell>
                 <TableCell align="center">
                   {format(new Date(movie.date), "MM/dd/yyyy")}
                 </TableCell>

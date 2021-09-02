@@ -117,6 +117,7 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
   const [users, setUsers] = useState();
   const [genres, setGenres] = useState();
   const [comments, setComments] = useState();
+  const [ratings, setRatings] = useState();
 
   const consultUsers = async () => {
     const URL = process.env.REACT_APP_API_USERS;
@@ -139,6 +140,13 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
       .then((json) => setComments(json));
   };
 
+  const consultRatings = async () => {
+    const URL = process.env.REACT_APP_API_RATINGS;
+    await fetch(URL)
+      .then((response) => response.json())
+      .then((json) => setRatings(json));
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -150,6 +158,7 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
     consultUsers();
     consultGenres();
     consultComments();
+    consultRatings();
     // eslint-disable-next-line
     setNavbarFlag(false);
     return () => setNavbarFlag(true);
@@ -215,6 +224,7 @@ export default function Dashboard({ consultMovies, movies, setNavbarFlag }) {
                   consultMovies={consultMovies}
                   movies={movies}
                   genres={genres}
+                  ratings={ratings}
                   setGenres={setGenres}
                 />
               </Paper>
