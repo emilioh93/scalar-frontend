@@ -31,7 +31,6 @@ export default function AddMoviesDash({ consultMovies, genres }) {
   const [name, setName] = useState("");
   const [resume, setResume] = useState("");
   const [image, setImage] = useState("");
-  const [raiting, setRaiting] = useState(0);
   const [error, setError] = useState(false);
 
   const URL = process.env.REACT_APP_API_MOVIES;
@@ -51,9 +50,6 @@ export default function AddMoviesDash({ consultMovies, genres }) {
       name.trim() !== "" &&
       resume.trim() !== "" &&
       image.trim() !== "" &&
-      raiting.trim() !== "" &&
-      raiting < 11 &&
-      raiting > 0 &&
       date !== "" &&
       genre !== ""
     ) {
@@ -63,7 +59,6 @@ export default function AddMoviesDash({ consultMovies, genres }) {
         name,
         resume,
         image,
-        raiting,
         genre,
         date,
       };
@@ -169,14 +164,6 @@ export default function AddMoviesDash({ consultMovies, genres }) {
               id="standard-basic"
               label="Image"
               onChange={(e) => setImage(e.target.value)}
-            />
-          </Grid>
-          <Grid item xm={12} md={4}>
-            <TextField
-              id="standard-basic"
-              label="Rating"
-              type="number"
-              onChange={(e) => setRaiting(e.target.value)}
             />
           </Grid>
           <Grid item xm={12} md={4}>

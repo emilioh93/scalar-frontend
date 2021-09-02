@@ -49,7 +49,6 @@ export default function EditMoviesDash({
   const [name, setName] = useState(movie.name);
   const [resume, setResume] = useState(movie.resume);
   const [image, setImage] = useState(movie.image);
-  const [raiting, setRaiting] = useState(movie.raiting);
   const [error, setError] = useState(false);
   const URL = process.env.REACT_APP_API_MOVIES;
 
@@ -87,7 +86,6 @@ export default function EditMoviesDash({
           name,
           resume,
           image,
-          raiting,
           genre,
           date,
         };
@@ -202,15 +200,6 @@ export default function EditMoviesDash({
                       label="Image"
                       value={image}
                       onChange={(e) => setImage(e.target.value)}
-                    />
-                  </Grid>
-                  <Grid item xm={12} md={4}>
-                    <TextField
-                      id="standard-basic"
-                      label="Rating"
-                      type="number"
-                      value={raiting}
-                      onChange={(e) => setRaiting(e.target.value)}
                     />
                   </Grid>
                   <Grid item xm={12} md={4}>
