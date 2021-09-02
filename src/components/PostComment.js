@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: "50px",
+    marginTop: "0px",
     width: "100%",
   },
   input: {
