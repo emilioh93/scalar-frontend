@@ -30,15 +30,21 @@ const Details = () => {
   const classes = useStyles();
   const [comments, setComments] = useState();
   const [ratings, setRatings] = useState();
+  const [disabled, setDisabled] = useState(false);
   const { user } = useContext(UserContext);
 
   const ratingFilter =
     ratings && ratings.filter((rating) => rating.movie === id);
   const ratingMap = ratingFilter && ratingFilter.map((rating) => rating.value);
   let suma =
-    ratingMap && ratingMap.reduce((previous, current) => (current += previous));
+    ratingMap &&
+    ratingMap.reduce((previous, current) => (current += previous), 0);
   let longitud = ratingMap && ratingMap.length;
   let promedio = suma / longitud;
+
+  const consultRatingOfUser = async () => {
+    console.log(user);
+  };
 
   const consultRatings = async () => {
     await fetch(URL_Ratings)
@@ -68,6 +74,7 @@ const Details = () => {
     consultComments();
     consultDetails();
     consultRatings();
+    consultRatingOfUser();
     // eslint-disable-next-line
   }, []);
 
@@ -99,7 +106,12 @@ const Details = () => {
             </div>
             {user ? (
               <>
-                <RatingStars id={id} consultRatings={consultRatings}></RatingStars>
+                <RatingStars
+                  disabled={disabled}
+                  setDisabled={setDisabled}
+                  id={id}
+                  consultRatings={consultRatings}
+                ></RatingStars>
                 <PostComment
                   id={id}
                   consultComments={consultComments}

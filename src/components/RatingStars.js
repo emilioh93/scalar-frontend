@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
 import Rating from "@material-ui/lab/Rating";
-import { makeStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import Swal from "sweetalert2";
 import { UserContext } from "../Context/UserContext";
-import { createRef } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,11 +10,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RatingStars({ id, consultRatings }) {
+export default function RatingStars({
+  id,
+  consultRatings,
+  disabled,
+  setDisabled,
+}) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
   const [rating, setRating] = useState();
-  const [disabled, setDisabled] = useState(false);
+  const [value, setValue] = useState();
   const { user } = useContext(UserContext);
   const URL = process.env.REACT_APP_API_RATINGS;
 
@@ -41,9 +44,7 @@ export default function RatingStars({ id, consultRatings }) {
       if (response.status === 201) {
         Swal.fire("Rating posted", "", "success");
         setDisabled(true);
-        // Deshabilitar botón
-        // console.log(componente.current.style.color = "blue");
-        // componente.setAttribute("disabled", "");
+        consultRatings();
         // Mostrar botón para eliminar puntuación
       }
     } catch (error) {
@@ -52,14 +53,43 @@ export default function RatingStars({ id, consultRatings }) {
     }
   };
 
+  const deleteMovie = (code) => {
+    setDisabled(false);
+    // Eliminar rating anterior
+    
+    // try {
+    //   const URL = process.env.REACT_APP_API_MOVIES + "/" + code;
+    //   const response = await fetch(URL, {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   if (response.status === 200) {
+    //     Swal.fire("The movie was removed", "", "success");
+    //     // Update list of movies
+    //     consultMovies();
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   Swal.fire("Error", "", "warning");
+    // }
+  };
+
   return (
     <div className={classes.root} component="fieldset">
-      <Rating
-        disabled={disabled}
-        name="simple-controlled"
-        value={value}
-        onChange={handleChange}
-      />
+      {disabled === true ? (
+        <Button variant="outlined" onClick={() => deleteMovie(id)}>
+          ⭐New Rating
+        </Button>
+      ) : (
+        <Rating
+          disabled={disabled}
+          name="simple-controlled"
+          value={value}
+          onChange={handleChange}
+        />
+      )}
     </div>
   );
 }
