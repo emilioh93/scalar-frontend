@@ -17,7 +17,6 @@ export default function RatingStars({
   setDisabled,
 }) {
   const classes = useStyles();
-  const [rating, setRating] = useState();
   const [value, setValue] = useState();
   const { user } = useContext(UserContext);
   const URL = process.env.REACT_APP_API_RATINGS;
