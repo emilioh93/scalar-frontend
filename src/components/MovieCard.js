@@ -19,15 +19,33 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "3%",
     left: "7%",
+    [theme.breakpoints.down('sm')]: {
+      top: "4%",
+      left: "10%",
+    },
+  },
+  title:{
+    fontSize: "18px",
+      fontWeight: "bold",
+    [theme.breakpoints.down('sm')]: {
+      fontSize: "14px",
+      fontWeight: "bold",
+    },
   },
   media: {
     width: "100%",
     objectFit: "contain",
   },
   details: {
+    position: "absolute",
+    bottom: "0",
+    padding: "10px",
     textDecoration: "none",
-    fontSize: "18px",
+    fontSize: "15px",
     color: "blue",
+    [theme.breakpoints.down('sm')]: {
+      fontSize: "14px",
+    },
   },
 }));
 
@@ -66,7 +84,7 @@ export default function MediaCard({ movie }) {
       <CardActionArea>
         <img className={classes.media} src={movie.image} alt={movie.name} />
         <CardContent>
-          <Typography gutterBottom variant="h6">
+          <Typography className={classes.title} gutterBottom variant="h6">
             {`${movie.name} (${
               movie.date && format(new Date(movie.date), "yyyy")
             })`}

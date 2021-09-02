@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     width: "5%",
+    [theme.breakpoints.down('sm')]: {
+      width: "20%",
+    },
   },
 }));
 
