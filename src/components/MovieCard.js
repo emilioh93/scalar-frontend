@@ -37,9 +37,6 @@ export default function MediaCard({ movie }) {
               movie.date && format(new Date(movie.date), "yyyy")
             })`}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {movie.raiting}/10
-          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
