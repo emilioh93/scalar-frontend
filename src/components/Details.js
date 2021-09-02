@@ -7,6 +7,7 @@ import Comments from "./Comments";
 import { UserContext } from "../Context/UserContext";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import RatingStars from "./RatingStars";
 
 const useStyles = makeStyles({
   title: {
@@ -76,14 +77,17 @@ const Details = () => {
             </div>
             <div>
               <span>
-                <strong>Raiting:</strong> {movie.raiting}/10
+                <strong>Rating:</strong> Puntuación promedio
               </span>
             </div>
             {user ? (
-              <PostComment
-                id={id}
-                consultComments={consultComments}
-              ></PostComment>
+              <>
+                <RatingStars></RatingStars>
+                <PostComment
+                  id={id}
+                  consultComments={consultComments}
+                ></PostComment>
+              </>
             ) : (
               <div className={classes.plaseLogin}>
                 <h2>Comments</h2>
