@@ -25,10 +25,26 @@ const Details = () => {
   const [movie, setMovie] = useState({});
   const URL = process.env.REACT_APP_API_MOVIES;
   const URL_Comments = process.env.REACT_APP_API_COMMENTS;
+  const URL_Ratings = process.env.REACT_APP_API_RATINGS;
   const { id } = useParams();
   const classes = useStyles();
   const [comments, setComments] = useState();
+  const [ratings, setRatings] = useState();
   const { user } = useContext(UserContext);
+
+  const ratingFilter =
+    ratings && ratings.filter((rating) => rating.movie === id);
+  const ratingMap = ratingFilter && ratingFilter.map((rating) => rating.value);
+  let suma =
+    ratingMap && ratingMap.reduce((previous, current) => (current += previous));
+  let longitud = ratingMap && ratingMap.length;
+  let promedio = suma / longitud;
+
+  const consultRatings = async () => {
+    await fetch(URL_Ratings)
+      .then((response) => response.json())
+      .then((json) => setRatings(json));
+  };
 
   const consultComments = async () => {
     await fetch(URL_Comments)
@@ -51,6 +67,7 @@ const Details = () => {
   useEffect(() => {
     consultComments();
     consultDetails();
+    consultRatings();
     // eslint-disable-next-line
   }, []);
 
@@ -77,12 +94,12 @@ const Details = () => {
             </div>
             <div>
               <span>
-                <strong>Rating:</strong> Puntuación promedio
+                <strong>Rating:</strong> {promedio.toFixed(1)}
               </span>
             </div>
             {user ? (
               <>
-                <RatingStars></RatingStars>
+                <RatingStars id={id} consultRatings={consultRatings}></RatingStars>
                 <PostComment
                   id={id}
                   consultComments={consultComments}
