@@ -3,6 +3,7 @@ import Rating from "@material-ui/lab/Rating";
 import { makeStyles } from "@material-ui/core";
 import Swal from "sweetalert2";
 import { UserContext } from "../Context/UserContext";
+import { createRef } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +15,7 @@ export default function RatingStars({ id, consultRatings }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(2);
   const [rating, setRating] = useState();
+  const [disabled, setDisabled] = useState(false);
   const { user } = useContext(UserContext);
   const URL = process.env.REACT_APP_API_RATINGS;
 
@@ -38,7 +40,10 @@ export default function RatingStars({ id, consultRatings }) {
       console.log(response);
       if (response.status === 201) {
         Swal.fire("Rating posted", "", "success");
-        consultRatings();
+        setDisabled(true);
+        // Deshabilitar botón
+        // console.log(componente.current.style.color = "blue");
+        // componente.setAttribute("disabled", "");
         // Mostrar botón para eliminar puntuación
       }
     } catch (error) {
@@ -49,7 +54,12 @@ export default function RatingStars({ id, consultRatings }) {
 
   return (
     <div className={classes.root} component="fieldset">
-      <Rating name="simple-controlled" value={value} onChange={handleChange} />
+      <Rating
+        disabled={disabled}
+        name="simple-controlled"
+        value={value}
+        onChange={handleChange}
+      />
     </div>
   );
 }
