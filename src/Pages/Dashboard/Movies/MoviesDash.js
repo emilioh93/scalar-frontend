@@ -25,20 +25,8 @@ export default function MoviesDash({
   movies,
   genres,
   setGenres,
-  ratings,
 }) {
   const classes = useStyles();
-  // const moviesFilter = movies && movies.map((movie) => movie._id);
-  // const ratingFilter =
-  //   ratings && ratings.filter((rating) => rating.movie === moviesFilter);
-  // const ratingMap = ratingFilter && ratingFilter.map((rating) => rating.value);
-  // let suma =
-  //   ratingMap &&
-  //   ratingMap.reduce((previous, current) => (current += previous), 0);
-  // let longitud = ratingMap && ratingMap.length;
-  // let promedio = suma / longitud;
-
-  // console.log(promedio);
 
   const deleteMovie = (code) => {
     Swal.fire({

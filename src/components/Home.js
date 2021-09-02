@@ -69,7 +69,7 @@ const Home = ({ movies }) => {
             <option aria-label="None" value="" />
             <option value="10">Name</option>
             <option value="20">Date</option>
-            <option value="30">Raiting</option>
+            {/* <option value="30">Raiting</option> */}
           </Select>
         </FormControl>
       </div>

@@ -72,7 +72,6 @@ export default function MediaCard({ movie }) {
             })`}
           </Typography>
         </CardContent>
-        {/* <Typography>{promedio}</Typography> */}
       </CardActionArea>
       <CardActions>
         <Link
