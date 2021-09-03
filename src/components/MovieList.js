@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-// import Skeleton from "react-loading-skeleton";
 import MovieCard from "./MovieCard";
 
 const MovieList = ({ movies }) => {
@@ -12,8 +11,6 @@ const MovieList = ({ movies }) => {
       setLoading(false);
     }, 5000);
   }, []);
-
-  console.log(loading);
 
   return (
     <Grid container spacing={3}>
