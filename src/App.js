@@ -33,7 +33,7 @@ function App() {
       <Navbar navbarFlag={navbarFlag}></Navbar>
       <Switch>
         <Route exact path="/">
-          <Home movies={movies} />
+          <Home movies={movies}/>
         </Route>
         <Route exact path="/login">
           <Login />
