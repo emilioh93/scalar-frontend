@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import MovieCard from "./MovieCard";
 
+const useStyles = makeStyles((theme) => ({
+  skeleton: {
+    [theme.breakpoints.down('sm')]: {
+      width: "150px",
+    },
+  }
+}));
+
 const MovieList = ({ movies }) => {
+  const classes = useStyles();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,10 +28,10 @@ const MovieList = ({ movies }) => {
           movies.map((movie, i) => {
             return (
               <Grid key={i} item xs={6} sm={4} lg={3}>
-                <Skeleton variant="rect" width={220} height={300} />
-                <Skeleton />
-                <Skeleton />
-                <Skeleton />
+                <Skeleton className={classes.skeleton} variant="rect" height={300} />
+                <Skeleton className={classes.skeleton} />
+                <Skeleton className={classes.skeleton} />
+                <Skeleton className={classes.skeleton} />
               </Grid>
             );
           })
